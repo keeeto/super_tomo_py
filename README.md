@@ -13,6 +13,10 @@ This directory contains networks that can be used to reconstruct real space imag
 ## Requirements
 
 Requirements for running the codes:
+```
+PIL
+tensorflow >= 2.1
+```
 
 ## Partners
 
