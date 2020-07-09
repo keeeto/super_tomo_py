@@ -3,6 +3,7 @@ import os
 import matplotlib.pyplot as plt
 from PIL import Image
 import PIL
+from data_handeling.generators import test_patch_flow_from_file
 
 def _find_image_files(datapath, ftypes):
     '''
@@ -46,3 +47,81 @@ def image_to_windows(datapath, ftypes, patch_size, patch_origin=(0, 0), savepath
             number = count * num_patches + i
             img.save( '%s/%s-%i.tiff' % (savepath, prefix, number))
 
+def inference_binary_segmentation(datapath, patch_shape, img_shape, model,
+                       file_prefix='binary_mask', savepath='.', 
+		       fig_size=(20, 8), debug=False,
+                       batch_size=1):
+    '''
+    Function to plot and save an image of the binary mask.
+    Args:
+        datapath: the folder where the images to treat are located
+	file_prefix: the prefix for the saved file name
+	savepath: the path to the location to save the files
+	patch_shape: pixel shape of the patch
+	img_shape: pixel shape of the original image
+	fig_size: the size of the images to produce
+	model: the loaded Keras model
+        batch_size: the batch size for running prediction model
+
+    '''
+    import matplotlib.pyplot as plt
+    if not os.path.exists(savepath):
+        os.makedirs(savepath)
+    imgfiles = build_list_images(datapath, types=(['.png', '.tiff']))
+    y_patches = int(img_shape[0] / patch_shape[0])
+    x_patches = int(img_shape[1] / patch_shape[1])
+    num_patches = x_patches * y_patches 
+    print(imgfiles)
+
+# Open the figure before the loop - so we overwrite and save time
+    fig, ax = plt.subplots(nrows=1, ncols=1
+                          , figsize=(20, 8))
+# Load the images and run through the model
+    for imnum, imfile in enumerate(imgfiles):
+        testGene = test_patch_flow_from_file(imfile,
+                    patch_shape, img_shape, debug=False)
+        results = model.predict(testGene, 
+                  num_patches, verbose=0)
+
+# Convert from probabilities to binary mask
+        if debug:
+            print("Maximum mask predicted {0}.".format(np.max(results)))
+            print("Minmum mask predicted {0}.".format(np.min(results)))
+        for result in results:
+            result[result > 0.5] = 1
+            result[result <= 0.5] = 0
+
+# Plot and save the results
+# Rename some variables to make the following function readable
+        h = patch_shape[0]
+        w = patch_shape[1]
+        rows = y_patches
+        cols = x_patches
+        imarray = np.array(results)
+        imarray = imarray.reshape(rows, cols, h, w).swapaxes(1, 2) \
+                  .reshape(h*rows, w*cols)
+
+        ax.imshow(imarray)	
+        # TODO - save 8-bit binary image rahter than RGB
+        plt.savefig(savepath + '{}_{:05d}.tif'.format(file_prefix, imnum))
+
+    return
+
+def build_list_images(datapath, types=None):
+    '''
+    Builds a list of all image files in a given directory
+    Args:
+        datapath: the location to search
+        types: a tuple of the extensions to search, if unspecified a list of defaults is checked
+    Returns:
+        paths: a list of the datapaths to the images
+    '''
+    if not types:
+        types = ('.jpg', '.jpeg', '.png', '.tif', '.tiff',
+        '.bmp', '.pdf', '.eps', '.ps')
+    images = []
+    for root, subdirs, files in os.walk(datapath):
+        for file in files:
+            if os.path.splitext(file)[1].lower() in types:
+                images.append(os.path.join(root, file))
+    return images

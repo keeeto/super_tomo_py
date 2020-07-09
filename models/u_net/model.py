@@ -1,5 +1,6 @@
 import numpy as np 
-from tensorflow.keras.models import *
+from tensorflow.keras import Model
+#from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
 from tensorflow.keras.optimizers import *
 from tensorflow.keras import backend as keras
@@ -71,7 +72,7 @@ def unet(input_size = (256, 256, 1), pad='same'):
             kernel_initializer = 'he_normal')(conv9)
     conv10 = Conv2D(1, 1, activation = 'sigmoid')(conv9)
 
-    model = Model(input = inputs, output = conv10)
+    model = Model(inputs = inputs, outputs = conv10)
 
     return model
 
@@ -163,7 +164,7 @@ def unet_weight_map(input_size = (256, 256, 1), n_classes=2, predict=False):
 
         model = Model(inputs=[weight_map_ip, inp], outputs=[weighted_softmax])
     else:
-        model = Model(input = inp, output = conv10)
+        model = Model(inputs = inp, outputs = conv10)
 
     return model
 
@@ -218,7 +219,7 @@ def unet_4layer(input_size = (256, 256, 1)):
             kernel_initializer = 'he_normal')(conv9)
     conv10 = Conv2D(1, 1, activation = 'sigmoid')(conv9)
 
-    model = Model(input = inputs, output = conv10)
+    model = Model(inputs = inputs, outputs = conv10)
 
     return model
 
@@ -260,6 +261,6 @@ def unet_3layer(input_size = (256, 256, 1)):
             kernel_initializer = 'he_normal')(conv9)
     conv10 = Conv2D(1, 1, activation = 'sigmoid')(conv9)
 
-    model = Model(input = inputs, output = conv10)
+    model = Model(inputs = inputs, outputs = conv10)
 
     return model
