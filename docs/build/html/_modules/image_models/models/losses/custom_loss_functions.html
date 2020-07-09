@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>image_models.models.losses.custom_loss_functions &mdash; sciml-image 0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home" alt="Documentation Home"> sciml-image
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../models.html">Models available</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../loss_functions.html">Loss functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Python API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">sciml-image</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>image_models.models.losses.custom_loss_functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for image_models.models.losses.custom_loss_functions</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">keras</span> <span class="kn">import</span> <span class="n">backend</span> <span class="k">as</span> <span class="n">keras</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<div class="viewcode-block" id="dice_coef"><a class="viewcode-back" href="../../../../image_models.models.losses.html#image_models.models.losses.custom_loss_functions.dice_coef">[docs]</a><span class="k">def</span> <span class="nf">dice_coef</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Params: y_true -- the labeled mask corresponding to an rgb image</span>
+<span class="sd">            y_pred -- the predicted mask of an rgb image</span>
+<span class="sd">    Returns: dice_coeff -- A metric that accounts for precision and recall</span>
+<span class="sd">                           on the scale from 0 - 1. The closer to 1, the</span>
+<span class="sd">                           better.</span>
+<span class="sd">    Citation (MIT License): https://github.com/jocicmarko/</span>
+<span class="sd">                            ultrasound-nerve-segmentation/blob/</span>
+<span class="sd">                            master/train.py</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">y_true_f</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+    <span class="n">y_pred_f</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">intersection</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_true_f</span> <span class="o">*</span> <span class="n">y_pred_f</span><span class="p">)</span>
+    <span class="n">smooth</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">intersection</span><span class="o">+</span><span class="n">smooth</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_true_f</span><span class="p">)</span><span class="o">+</span>
+            <span class="n">keras</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_pred_f</span><span class="p">)</span> <span class="o">+</span> <span class="n">smooth</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="weighted_cross_entropy"><a class="viewcode-back" href="../../../../image_models.models.losses.html#image_models.models.losses.custom_loss_functions.weighted_cross_entropy">[docs]</a><span class="k">def</span> <span class="nf">weighted_cross_entropy</span><span class="p">(</span><span class="n">beta</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  Weighted binary crossentropy. Very useful for class imbalanced image segmentation</span>
+<span class="sd">  Args:</span>
+<span class="sd">     beta: the weighting factor (float). For an explanation on how this works see:</span>
+<span class="sd">     https://lars76.github.io/neural-networks/object-detection/losses-for-segmentation/</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">def</span> <span class="nf">convert_to_logits</span><span class="p">(</span><span class="n">y_pred</span><span class="p">):</span>
+      <span class="c1"># see https://github.com/tensorflow/tensorflow/blob/r1.10/tensorflow/python/keras/backend.py#L3525</span>
+      <span class="n">y_pred</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">clip_by_value</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">epsilon</span><span class="p">(),</span> 
+                                <span class="mi">1</span> <span class="o">-</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">epsilon</span><span class="p">())</span>
+
+      <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">convert_to_logits</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">weighted_cross_entropy_with_logits</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> 
+                                   <span class="n">targets</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">pos_weight</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">loss</span></div>
+
+<div class="viewcode-block" id="balanced_cross_entropy"><a class="viewcode-back" href="../../../../image_models.models.losses.html#image_models.models.losses.custom_loss_functions.balanced_cross_entropy">[docs]</a><span class="k">def</span> <span class="nf">balanced_cross_entropy</span><span class="p">(</span><span class="n">beta</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  Balanced binary crossentropy. Very useful for class imbalanced image segmentation</span>
+<span class="sd">  Args:</span>
+<span class="sd">     beta: the weighting factor (float). For an explanation on how this works see:</span>
+<span class="sd">     https://lars76.github.io/neural-networks/object-detection/losses-for-segmentation/</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">def</span> <span class="nf">convert_to_logits</span><span class="p">(</span><span class="n">y_pred</span><span class="p">):</span>
+      <span class="c1"># see https://github.com/tensorflow/tensorflow/blob/r1.10/tensorflow/python/keras/backend.py#L3525</span>
+      <span class="n">y_pred</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">clip_by_value</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">epsilon</span><span class="p">(),</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">epsilon</span><span class="p">())</span>
+
+      <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">convert_to_logits</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">pos_weight</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">weighted_cross_entropy_with_logits</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">pos_weight</span><span class="o">=</span><span class="n">pos_weight</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">loss</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">))</span>
+
+  <span class="k">return</span> <span class="n">loss</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2019, Keith T. Butler
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
