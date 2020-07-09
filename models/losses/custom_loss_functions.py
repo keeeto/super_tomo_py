@@ -31,14 +31,14 @@ def weighted_cross_entropy(beta):
       y_pred = tf.clip_by_value(y_pred, tf.keras.backend.epsilon(), 
                                 1 - tf.keras.backend.epsilon())
 
-      return tf.log(y_pred / (1 - y_pred))
+      return tf.math.log(y_pred / (1 - y_pred))
 
   def loss(y_true, y_pred):
     y_pred = convert_to_logits(y_pred)
     loss = tf.nn.weighted_cross_entropy_with_logits(logits=y_pred, 
-                                   targets=y_true, pos_weight=beta)
+                                   labels=y_true, pos_weight=beta)
 
-    return tf.reduce_mean(loss)
+    return tf.math.reduce_mean(loss)
 
   return loss
 
@@ -53,13 +53,13 @@ def balanced_cross_entropy(beta):
       # see https://github.com/tensorflow/tensorflow/blob/r1.10/tensorflow/python/keras/backend.py#L3525
       y_pred = tf.clip_by_value(y_pred, tf.keras.backend.epsilon(), 1 - tf.keras.backend.epsilon())
 
-      return tf.log(y_pred / (1 - y_pred))
+      return tf.math.log(y_pred / (1 - y_pred))
 
   def loss(y_true, y_pred):
     y_pred = convert_to_logits(y_pred)
     pos_weight = beta / (1 - beta)
-    loss = tf.nn.weighted_cross_entropy_with_logits(logits=y_pred, targets=y_true, pos_weight=pos_weight)
+    loss = tf.nn.weighted_cross_entropy_with_logits(logits=y_pred, labels=y_true, pos_weight=pos_weight)
 
-    return tf.reduce_mean(loss * (1 - beta))
+    return tf.math.reduce_mean(loss * (1 - beta))
 
   return loss
