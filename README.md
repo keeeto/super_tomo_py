@@ -16,6 +16,8 @@ Requirements for running the codes:
 ```
 PIL
 tensorflow >= 2.1
+scikit-learn
+scikit-image
 ```
 
 ## Partners
