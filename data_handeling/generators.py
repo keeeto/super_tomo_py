@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """:w
-Created on Tue Apr  9 10:19:59 2019
 
 @author: Keith Butler
 """
@@ -8,7 +7,7 @@ import numpy as np
 import threading
 from .tools import normalise_discritise_data, build_list_images
 from skimage.util import view_as_blocks
-from keras.preprocessing.image import img_to_array, load_img
+from tensorflow.keras.preprocessing.image import img_to_array, load_img
 from PIL import Image
 from sklearn.preprocessing import normalize
 
@@ -122,7 +121,7 @@ def generator_from_df(df, dummy_y, batch_size, target_size, debug=False,
             j += batch_size
             count += 1
             
-#@threadsafe_generator
+@threadsafe_generator
 def mask_patch_from_file(datapath, img_dir, mask_dir, patch_size, target_size, types=None,
                             debug=False, debug_merged=False, patch_range = [], 
                             batch_size = 1, normalise_images=False):
@@ -162,14 +161,12 @@ def mask_patch_from_file(datapath, img_dir, mask_dir, patch_size, target_size, t
     epoch = 0
     
     if len(patch_range) == 0:
-        patch_range = [0, target_size[0]/patch_size[0]*target_size[1]/patch_size[1]]
-
+        patch_range = np.arange(target_size[0]/patch_size[0]*target_size[1]/patch_size[1])
     n_height = int(target_size[0]/patch_size[0])
     n_width = int(target_size[1]/patch_size[1])
 
     while 1:
         epoch += 1
-        
         # Mini-batches within epoch.
         mini_batches_completed = 0
         for patch in patch_range:
