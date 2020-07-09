@@ -10,6 +10,10 @@ This repository contains code for using to neural networks to reconstruct and en
 * Reconstruction
 This directory contains networks that can be used to reconstruct real space images from sinographs.
 
+## Requirements
+
+Requirements for running the codes:
+
 ## Partners
 
 The project involves [STFC](stfc.ukri.org) and [Finden Ltd.](www.finden.co.uk)
