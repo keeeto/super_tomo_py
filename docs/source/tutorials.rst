@@ -2,8 +2,84 @@
 Tutorials
 *********
 
+Tomographic reconstructions
+############################
+
+Reconstruction with a CNN
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In this tutorial we will reconstruct an image from a sinogram using a convolutional neural network.
+We have a network architecture for this task: `models.cnn_reconstruct.models.reconstruct_cnn`
+
+Step 0
+------
+
+Generate the data. We have some scripts to generate sample data for this task. `LibShapes.py`
+Alternatively download sample data from here: http://tiny.cc/vdl9rz
+
+
+Step 1
+------
+
+When the data is generated we now load it up. Use the `utils.tools.read_reconstruct_library` helper
+function to make this easier. We then shuffle around the image/sinogram pairs to make sure that 
+we don't have any false ordering. We alsoe need to make sure that `superres-ml` is on our `pythonpath`.
+Split the data into training and test data.
+
+.. code:: python
+   
+   from utils.tools import read_reconstruct_library
+   import sys
+   sys.path.append('/home/mts87985/ml-tomo/super-resolution-ml/')
+
+   images, sinos, nim = read_reconstruct_library('data/reconstruction/shapes_random_noise_64px_norm.h5')
+   index = np.arange(nim)
+   np.random.shuffle(index)
+   images = images[index,:,:,:]
+   sinograms = sinos[index,:,:,:]
+   sinograms_test = sinograms[9000:]
+   images_test = images[9000:]
+   sinograms = sinograms[:9000]
+   images = images[:9000]
+
+Step 2
+------
+
+Set up the network. We import the `reconstruct_cnn` netowrk from out `superres-ml` model library.
+We then compile the network to use the `Adam` optimiser and to monitor the `mae` and `mse` during
+training. We add a callback, which makes the training stop if the metrics have not improved for 
+three steps.
+
+.. code:: python
+
+   from tensorflow.keras.optimizers import Adam
+   from tensorflow.keras.callbacks import EarlyStopping
+   from models.cnn_reconstruct.models import reconstruct_cnn
+
+   model_rec = reconstruct_cnn(sinos.shape[1], sinos.shape[2])
+   model_rec.compile(optimizer = Adam(lr = 0.000025), loss = 'mean_squared_error', metrics = ['mae', 'mse'])
+   my_callbacks = [EarlyStopping(patience=3)]
+
+Step 3
+------
+
+Train the model!
+
+.. code:: python
+
+   training = model_rec.fit(sinograms, images,
+                         validation_split = 0.1,
+                         batch_size=32,
+                         epochs = 100,
+                         verbose = True,
+                         callbacks=my_callbacks)
+   history = model_rec.history
+
 Segmentation of X-ray images
 ############################
+
+Binary segmentation
+~~~~~~~~~~~~~~~~~~~
 
 This tutorial looks at segmentation of sections of an image, for example collected from X-ray imaging.
 We have a set of images where we have already labelled what the different parts of the image are, now
@@ -28,7 +104,7 @@ the image and learn sequentially from each patch. To do do this we have implemen
 generator to feed the network for training.
 
 Step 0
-~~~~~~
+------
 
 Generate the data. There is a helper script in the directory `data/segmentation` run this to generate 
 the data for this tutorial. Run this script to generate the data for this tutorial.
@@ -156,6 +232,4 @@ In the `inferred_masks` directory there should now be a masking file something l
 
 .. image:: figures/x-ray-mask.png
 
-Tomographic reconstructions
-############################
 
