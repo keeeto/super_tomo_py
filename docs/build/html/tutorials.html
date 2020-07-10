@@ -87,13 +87,13 @@
 <li class="toctree-l1"><a class="reference internal" href="models.html">Models available</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorials</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#segmentation-of-x-ray-images">Segmentation of X-ray images</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-0">Step 0</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#step-1">Step 1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#step-2">Step 2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#step-3">Step 3</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#step-4">Step 4</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#step-5">Step 5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#step-6">Step 6</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#step-7">Step 7</a></li>
 </ul>
 </li>
 </ul>
@@ -182,78 +182,57 @@ together in the memory.</p>
 <p>(ii) The classes are very imbalanced. There is 98% nothing to see in the images, so the
 model finds it very easy to classify everything as background and feel satisfied.</p>
 </div></blockquote>
-<p>To overcome the first problem we will use a routine in <cite>sciml-image</cite> to create patches from
+<p>To overcome the first problem we will use a routine in <cite>superres-tomo</cite> to create patches from
 the image and learn sequentially from each patch. To do do this we have implemented the
-<cite>image_models.data_handeling.generators.mask_patch_from_file</cite> function which acts as a
+<cite>data_handeling.generators.mask_patch_from_file</cite> function which acts as a
 generator to feed the network for training.</p>
 <p>To overcome the issue of class imbalance we will use a special loss function called
-<a class="reference internal" href="image_models.models.losses.html#image_models.models.losses.custom_loss_functions.weighted_cross_entropy" title="image_models.models.losses.custom_loss_functions.weighted_cross_entropy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">image_models.models.losses.custom_loss_functions.weighted_cross_entropy()</span></code></a>.
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">models.losses.custom_loss_functions.weighted_cross_entropy()</span></code>.
 Regular crossentropy on a binary segmentation peanilises equally
 for false positives and false negatives. However, in our case false positives will be
 very rare and false negatives much more common, due to 98% of the image being ‘positive’.
 <cite>weighted_cross_entropy</cite> applies a factor to the loss function to increase or decrease the
 penalty for false positives. If this factor is greater than 1 then it adds greater weight
 to a loss for a false positive, if it is less than 1 it reduces this weight.</p>
+<div class="section" id="step-0">
+<h3>Step 0<a class="headerlink" href="#step-0" title="Permalink to this headline">¶</a></h3>
+<p>Generate the data. There is a helper script in the directory <cite>data/segmentation</cite> run this to generate
+the data for this tutorial. Run this script to generate the data for this tutorial.</p>
+<p>Also make sure the <cite>superres-ml</cite> package is in your <cite>pythonpath</cite></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/path/to/super-resolution-ml/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="step-1">
 <h3>Step 1<a class="headerlink" href="#step-1" title="Permalink to this headline">¶</a></h3>
-<p>The first step is to set up the training data in the correct formats and directories.
-We will take an original large image and mask, and convert them into smaller windows
-of the originals, in the appropriate directories for the later training. We use the
-<cite>image_models.utils.alm.tools.image_to_windows</cite> function in to do this.
-The original image and mask files should be on their own in individual directories.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sciml</span><span class="o">-</span><span class="n">image</span>
-<span class="kn">from</span> <span class="nn">utils.alm.tools</span> <span class="kn">import</span> <span class="n">image_to_windows</span>
-
-<span class="c1">## Convert the training images to windows</span>
-<span class="n">patch_origin</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">tuple</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">&gt;</span>
-<span class="n">patch_size</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">tuple</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">&gt;</span>
-<span class="n">ftypes</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">list</span> <span class="n">eg</span> <span class="p">[</span><span class="s1">&#39;.tif&#39;</span><span class="p">]</span><span class="o">&gt;</span>
-<span class="n">num_patches</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">int</span> <span class="o">&gt;</span>
-
-<span class="c1">### First the image</span>
-<span class="n">datapath</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">the</span> <span class="n">directory</span> <span class="n">where</span> <span class="n">the</span> <span class="n">image</span> <span class="n">file</span> <span class="ow">is</span><span class="o">&gt;</span>
-<span class="n">savepath</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">the</span> <span class="n">directory</span> <span class="n">to</span> <span class="n">save</span> <span class="n">the</span> <span class="n">patches</span> <span class="n">to</span><span class="o">&gt;</span>
-<span class="n">prefix</span><span class="o">=</span> <span class="o">&lt;</span><span class="n">prefix</span> <span class="n">to</span> <span class="n">give</span> <span class="n">the</span> <span class="n">patch</span> <span class="n">files</span><span class="o">&gt;</span>
-<span class="n">image_to_windows</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="n">ftypes</span><span class="p">,</span> <span class="n">patch_size</span><span class="o">=</span><span class="n">patch_size</span><span class="p">,</span> <span class="n">patch_origin</span><span class="o">=</span><span class="n">patch_origin</span><span class="p">,</span>
-              <span class="n">savepath</span><span class="o">=</span><span class="n">savepath</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">num_patches</span><span class="o">=</span><span class="n">num_patches</span><span class="p">)</span>
-
-<span class="c1">### Next the mask</span>
-<span class="n">datapath</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">the</span> <span class="n">directory</span> <span class="n">where</span> <span class="n">the</span> <span class="n">mask</span> <span class="n">file</span> <span class="ow">is</span><span class="o">&gt;</span>
-<span class="n">savepath</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">the</span> <span class="n">directory</span> <span class="n">to</span> <span class="n">save</span> <span class="n">the</span> <span class="n">patches</span> <span class="n">to</span><span class="o">&gt;</span>
-<span class="n">prefix</span><span class="o">=</span> <span class="o">&lt;</span><span class="n">prefix</span> <span class="n">to</span> <span class="n">give</span> <span class="n">the</span> <span class="n">patch</span> <span class="n">files</span><span class="o">&gt;</span>
-<span class="n">image_to_windows</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="n">ftypes</span><span class="p">,</span> <span class="n">patch_size</span><span class="o">=</span><span class="n">patch_size</span><span class="p">,</span> <span class="n">patch_origin</span><span class="o">=</span><span class="n">patch_origin</span><span class="p">,</span>
-                 <span class="n">savepath</span><span class="o">=</span><span class="n">savepath</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">num_patches</span><span class="o">=</span><span class="n">num_patches</span><span class="p">)</span>
+<p>Once the data is in place we are ready to start setting up the U-net.
+Tell the code where to find the images and masks, the types of file to
+expect.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">datapath</span><span class="o">=</span> <span class="s1">&#39;data/segmentation/train/&#39;</span> <span class="c1">#&lt;the root directory of images and masks for training&gt;</span>
+<span class="n">valpath</span><span class="o">=</span> <span class="s1">&#39;data/segmentation/val/&#39;</span> <span class="c1">#&lt;the root directory of images and masks for validation&gt;</span>
+<span class="n">img_dir</span><span class="o">=</span> <span class="s1">&#39;noiseless/&#39;</span> <span class="c1"># &lt;the subdirectory where images are&gt;</span>
+<span class="n">mask_dir</span><span class="o">=</span> <span class="s1">&#39;label/&#39;</span> <span class="c1">#&lt;the subdirectory where masks are&gt;</span>
+<span class="n">ftypes</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;./tiff&#39;</span><span class="p">]</span> <span class="c1"># (&lt;filetypes to look for&gt;) # e.g. (&#39;.tif&#39;)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="step-2">
 <h3>Step 2<a class="headerlink" href="#step-2" title="Permalink to this headline">¶</a></h3>
-<p>Once the data is in place we are ready to start setting up the U-net.
-Tell the code where to find the images and masks, the types of file to
-expect.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">datapath</span><span class="o">=&lt;</span><span class="n">the</span> <span class="n">root</span> <span class="n">directory</span> <span class="n">of</span> <span class="n">images</span> <span class="ow">and</span> <span class="n">masks</span><span class="o">&gt;</span>
-<span class="n">img_dir</span><span class="o">=&lt;</span><span class="n">the</span> <span class="n">subdirectory</span> <span class="n">where</span> <span class="n">images</span> <span class="n">are</span><span class="o">&gt;</span>
-<span class="n">mask_dir</span><span class="o">=&lt;</span><span class="n">the</span> <span class="n">subdirectory</span> <span class="n">where</span> <span class="n">masks</span> <span class="n">are</span><span class="o">&gt;</span>
-<span class="n">ftypes</span><span class="o">=</span><span class="p">(</span><span class="o">&lt;</span><span class="n">filetypes</span> <span class="n">to</span> <span class="n">look</span> <span class="k">for</span><span class="o">&gt;</span><span class="p">)</span> <span class="c1"># e.g. (&#39;.tif&#39;)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="step-3">
-<h3>Step 3<a class="headerlink" href="#step-3" title="Permalink to this headline">¶</a></h3>
 <p>Set up the information about the size of the original image and the size of the
 patches to take from the image. Also here you can define a list of which patches
 to use. This last feature is useful when the interesting features are only in a
 section of the image. You can specify the particular patches to consider for the
 training. The numbering of patches starts from zero and proceeds left to right
 top to bottom. If the patch list is left empty the generator uses all patches.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">1280</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="mi">1280</span><span class="p">)</span>
 <span class="n">patch_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
-<span class="n">patch_range</span> <span class="o">=</span> <span class="p">[</span><span class="mi">31</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">62</span><span class="p">]</span>
+<span class="n">patch_range</span> <span class="o">=</span> <span class="p">[]</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="step-4">
-<h3>Step 4<a class="headerlink" href="#step-4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="step-3">
+<h3>Step 3<a class="headerlink" href="#step-3" title="Permalink to this headline">¶</a></h3>
 <p>Set up the generator. This is the function that will flow the patches from the images
 to the netowrk for training.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">data_handeling.generators</span> <span class="kn">import</span> <span class="n">mask_patch_from_file</span>
@@ -265,40 +244,48 @@ to the netowrk for training.</p>
                            <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                            <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
                            <span class="n">normalise_images</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">valGene</span> <span class="o">=</span> <span class="n">mask_patch_from_file</span><span class="p">(</span><span class="n">valpath</span><span class="p">,</span>
+                        <span class="n">img_dir</span><span class="p">,</span> <span class="n">mask_dir</span><span class="p">,</span>
+                        <span class="n">patch_shape</span><span class="p">,</span> <span class="n">image_shape</span><span class="p">,</span>
+                        <span class="n">types</span> <span class="o">=</span> <span class="n">ftypes</span><span class="p">,</span> <span class="n">patch_range</span><span class="o">=</span><span class="n">patch_range</span><span class="p">,</span>
+                        <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="n">normalise_images</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-4">
+<h3>Step 4<a class="headerlink" href="#step-4" title="Permalink to this headline">¶</a></h3>
+<p>Define the netowrk architecture, the hyperparameters and the training time.
+Here the input size is the dimension of the patches, also we have just 1
+channel as the image is greyscale. We use a standard Adam optimiser. The
+<cite>weighted_cross_entropy</cite> loss function is set up with a factor of 2 to help
+counter the class imbalance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">models.u_net.model</span> <span class="kn">import</span> <span class="n">unet</span>
+<span class="kn">import</span> <span class="nn">models.losses.custom_loss_functions</span> <span class="k">as</span> <span class="nn">losses</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">unet</span><span class="p">(</span><span class="n">input_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">patch_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">patch_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">losses</span><span class="o">.</span><span class="n">weighted_cross_entropy</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">opt</span><span class="p">,</span>
+           <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="step-5">
 <h3>Step 5<a class="headerlink" href="#step-5" title="Permalink to this headline">¶</a></h3>
-<p>Define the netowrk architecture, the hyperparameters and the training time.
-Here the input size is the dimension of the patches, also we have just 1
-channel as the image is greyscale. We use a standard SGD optimiser. The
-<cite>weighted_cross_entropy</cite> loss function is set up with a factor of 7 to help
-counter the class imbalance.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">models.u_net.model</span> <span class="kn">import</span> <span class="n">unet</span>
-<span class="kn">import</span> <span class="nn">models.losses.custom_loss_functions</span> <span class="k">as</span> <span class="nn">losses</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">unet</span><span class="p">(</span><span class="n">input_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">patch_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">patch_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">opt</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">1e-4</span> <span class="o">/</span> <span class="n">epochs</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">losses</span><span class="o">.</span><span class="n">weighted_cross_entropy</span><span class="p">(</span><span class="mi">7</span><span class="p">),</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">opt</span><span class="p">,</span>
-           <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+<p>Train and save!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">steps_per_epoch</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">myGene</span><span class="p">,</span> <span class="n">steps_per_epoch</span><span class="o">=</span><span class="n">steps_per_epoch</span><span class="p">,</span>
+          <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="n">valGene</span><span class="p">,</span> <span class="n">validation_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save_weights</span><span class="p">(</span><span class="s1">&#39;saved_weights.hdf5&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="step-6">
 <h3>Step 6<a class="headerlink" href="#step-6" title="Permalink to this headline">¶</a></h3>
-<p>Train and save!</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">steps_per_epoch</span> <span class="o">=</span> <span class="mi">800</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">myGene</span><span class="p">,</span> <span class="n">steps_per_epoch</span><span class="o">=</span><span class="n">steps_per_epoch</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">save_weights</span><span class="p">(</span><span class="s1">&#39;saved_weights.hdf5&#39;</span><span class="p">)</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;model.yaml&#39;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml_file</span><span class="p">:</span>
-    <span class="n">yaml_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">model_yaml</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="step-7">
-<h3>Step 7<a class="headerlink" href="#step-7" title="Permalink to this headline">¶</a></h3>
 <p>Run the model for inference. Having trained the model on some images you can now try to deploy on
 new examples. We have the <a class="reference internal" href="image_models.utils.html#image_models.utils.tools.inference_binary_segmentation" title="image_models.utils.tools.inference_binary_segmentation"><code class="xref py py-meth docutils literal notranslate"><span class="pre">image_models.utils.tools.inference_binary_segmentation()</span></code></a> helper
 function to do this. First we load up the saved model and weights.</p>

@@ -3,7 +3,7 @@ Models available
 ****************
 
 This is a list and a brief description of the various models that are currently available 
-in `sciml-image`. More detailed information about each of the models can be found in 
+in `superres-tomo`. More detailed information about each of the models can be found in 
 their individual module documentaion. Additionally example use cases are provided in the
 tutorials.
 
@@ -12,7 +12,7 @@ CNN
 ###
 
 This module contains a series of simple convolutional neural networks or CNNs. CNNs are the
-basis of the majority of the models that are included in `sciml-image`, other models tend to 
+basis of the majority of the models that are included in `superres-tomo`, other models tend to 
 be specific instances of CNNs, or CNNs adapted for particular purposes such as image denoising
 or segmentation. The CNNs in the CNN module are for simple classification and regression tasks.
 

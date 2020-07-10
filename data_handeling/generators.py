@@ -283,8 +283,9 @@ def mask_patch_weights_from_file(datapath, img_dir, mask_dir, patch_size, target
             i = j
             j += batch_size
 
-#@threadsafe_generator
-def test_patch_flow_from_file(datapath, patch_size, target_size, debug=False):
+@threadsafe_generator
+def test_patch_flow_from_file(datapath, patch_size, target_size, 
+                              debug=False, normalise_images=False):
     """This generator creates sequential patches from an image file and flows each one to the model.
        Args:
            datapath: path to the file to convert
@@ -296,7 +297,8 @@ def test_patch_flow_from_file(datapath, patch_size, target_size, debug=False):
     imgfiles = datapath
 
     X = np.asarray(Image.open(imgfiles))
-    X = X / 255
+    if normalise_images:
+        X = X / 255
     patches = view_as_blocks(X, block_shape=patch_size)
     for k in range(patches.shape[0]):
         for l in range(patches.shape[1]):

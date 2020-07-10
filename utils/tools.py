@@ -50,7 +50,7 @@ def image_to_windows(datapath, ftypes, patch_size, patch_origin=(0, 0), savepath
 def inference_binary_segmentation(datapath, patch_shape, img_shape, model,
                        file_prefix='binary_mask', savepath='.', 
 		       fig_size=(20, 8), debug=False,
-                       batch_size=1):
+                       batch_size=1, normim=False):
     '''
     Function to plot and save an image of the binary mask.
     Args:
@@ -62,6 +62,7 @@ def inference_binary_segmentation(datapath, patch_shape, img_shape, model,
 	fig_size: the size of the images to produce
 	model: the loaded Keras model
         batch_size: the batch size for running prediction model
+        normim: normalise the images fed to the model?
 
     '''
     import matplotlib.pyplot as plt
@@ -79,7 +80,8 @@ def inference_binary_segmentation(datapath, patch_shape, img_shape, model,
 # Load the images and run through the model
     for imnum, imfile in enumerate(imgfiles):
         testGene = test_patch_flow_from_file(imfile,
-                    patch_shape, img_shape, debug=False)
+                    patch_shape, img_shape, debug=False,
+                    normalise_images=normim)
         results = model.predict(testGene, 
                   num_patches, verbose=0)
 

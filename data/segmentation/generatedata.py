@@ -67,7 +67,7 @@ pth.mkdir(exist_ok=True)
 (pth / 'noisy').mkdir(exist_ok=True)
 (pth / 'noiseless').mkdir(exist_ok=True)
 (pth / 'label').mkdir(exist_ok=True)
-for i in range(100):
+for i in range(1):
     imn, im, l = generate()
     imageio.imsave(pth / 'noisy' / '{:05d}.tiff'.format(i), imn.astype(np.float32))
     imageio.imsave(pth / 'noiseless' / '{:05d}.tiff'.format(i), im.astype(np.float32))
@@ -78,7 +78,7 @@ pth.mkdir(exist_ok=True)
 (pth / 'noisy').mkdir(exist_ok=True)
 (pth / 'noiseless').mkdir(exist_ok=True)
 (pth / 'label').mkdir(exist_ok=True)
-for i in range(25):
+for i in range(1):
     imn, im, l = generate()
     imageio.imsave(pth / 'noisy' / '{:05d}.tiff'.format(i), imn.astype(np.float32))
     imageio.imsave(pth / 'noiseless' / '{:05d}.tiff'.format(i), im.astype(np.float32))
@@ -89,7 +89,7 @@ pth.mkdir(exist_ok=True)
 (pth / 'noisy').mkdir(exist_ok=True)
 (pth / 'noiseless').mkdir(exist_ok=True)
 (pth / 'label').mkdir(exist_ok=True)
-for i in range(10):
+for i in range(1):
     imn, im, l = generate()
     imageio.imsave(pth / 'noisy' / '{:05d}.tiff'.format(i), imn.astype(np.float32))
     imageio.imsave(pth / 'noiseless' / '{:05d}.tiff'.format(i), im.astype(np.float32))
