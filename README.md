@@ -18,6 +18,12 @@ PIL
 tensorflow >= 2.1
 scikit-learn
 scikit-image
+h5py
+matplotlib
+imageio
+## Only required if you want to generate sinogram shapes locally:
+python 3.6
+astra-toolbox
 ```
 
 ## Partners
