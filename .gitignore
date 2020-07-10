@@ -1,0 +1,14 @@
+*.h5
+*.hdf5
+*.yaml
+*.pickle
+*.pkl
+*.png
+*.txt
+*.pdf
+*.blg
+*.log
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.bbl
