@@ -4,6 +4,33 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import PIL
 from data_handeling.generators import test_patch_flow_from_file
+import h5py
+
+def read_reconstruct_library(filepath):
+    '''
+    Reads in the data for testing the reconstruction CNN
+    Args: 
+        filepath: (str) the path to the files
+    Returns:
+        iamges: array of the images
+        sinograms: array of sinograms
+        nim: the number of images
+    '''
+
+    with h5py.File(filepath, 'r') as f:
+        # List all groups
+        a_group_key = list(f.keys())
+        # Get the data
+        for key in a_group_key:
+            if key == 'Images':
+                images = np.array([list(f[key])])
+            elif key == 'Sinograms':
+                sinograms = np.array([list(f[key])])
+            elif key == 'NImages':
+                nim = np.array((f[key]))
+        images = np.transpose(images, (3,1,2,0))
+        sinograms = np.transpose(sinograms, (3,1,2,0))
+        return(images, sinograms, nim)
 
 def _find_image_files(datapath, ftypes):
     '''
