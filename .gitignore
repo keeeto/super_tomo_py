@@ -12,3 +12,4 @@
 *.fls
 *.synctex.gz
 *.bbl
+/notebooks/*
