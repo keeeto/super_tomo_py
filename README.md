@@ -18,6 +18,10 @@ PIL
 tensorflow >= 2.1
 scikit-learn
 scikit-image
+h5py
+astra
+matplotlib
+imageio
 ```
 
 ## Partners
