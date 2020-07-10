@@ -17,6 +17,13 @@ Step 0
 Generate the data. We have some scripts to generate sample data for this task. `LibShapes.py`
 Alternatively download sample data from here: http://tiny.cc/vdl9rz
 
+.. image:: figures/tomogram.png
+   :width: 1280px
+   :height: 512px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
 
 Step 1
 ------

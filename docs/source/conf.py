@@ -17,8 +17,8 @@ sys.path.insert(0, os.path.abspath('/home/mts87985/src/'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'sciml-image'
-copyright = '2019, Keith T. Butler'
+project = 'superres-ml'
+copyright = '2020, Keith T. Butler'
 author = 'Keith T. Butler'
 
 # The full version, including alpha/beta/rc tags

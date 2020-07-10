@@ -8,14 +8,11 @@ their individual module documentaion. Additionally example use cases are provide
 tutorials.
 
 
-CNN
-###
+cnn_reconstruct
+###############
 
-This module contains a series of simple convolutional neural networks or CNNs. CNNs are the
-basis of the majority of the models that are included in `superres-tomo`, other models tend to 
-be specific instances of CNNs, or CNNs adapted for particular purposes such as image denoising
-or segmentation. The CNNs in the CNN module are for simple classification and regression tasks.
-
+This module contains a CNN model for tomographic image reconstruction. For more details on 
+how to use this follow the tutorial on reconstruction with a CNN.
 
 AlexNet
 #######
@@ -36,11 +33,6 @@ image segmentation. [2]_
 
 Autoencoder
 ###########
-
-TBC
-
-Mixed-scale dense netowrks
-##########################
 
 TBC
 
