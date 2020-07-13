@@ -1,40 +1,103 @@
-from tensorflow.keras.layers import Input, Dense, Conv2D, MaxPooling2D, UpSampling2D
-from tensorflow.keras.models import Model
+import tensorflow as tf
+import os
+import time
+import numpy as np
+import glob
 
-def sample_autoencoder(input_shape):
-    '''
-    Example autoencoder. This is taken from the Keras blog:
-    https://blog.keras.io/building-autoencoders-in-keras.html
-    Args:
-       input_shape: (tuple) the shape of the input images
-    Returns:
-       Keras model
+class CVAE(tf.keras.Model):
+    def __init__(self, latent_dim, input_data):
+        ''' 
+        Initialise the convolutional autoencoder
+        Parameters
+        ----------
+            latent_dim : dimension of the latent space
+            input_shape : shape of the input array
+        '''
+        inner_shape = (int(input_data[0]/4), int(input_data[1]/4), 32)
+        super(CVAE, self).__init__()
+        self.latent_dim = latent_dim
+        self.input_data = input_data
+        self.inner_shape = inner_shape
+        self.inference_net = tf.keras.Sequential(
+          [   
+          tf.keras.layers.InputLayer(input_shape=input_data),
+          tf.keras.layers.Conv2D(
+              filters=16, kernel_size=4, strides=(2, 2), activation='relu'),
+          tf.keras.layers.Conv2D(
+              filters=32, kernel_size=4, strides=(2, 2), activation='relu'),
+          tf.keras.layers.Flatten(),
+          # No activation
+          tf.keras.layers.Dense(latent_dim + latent_dim),
+          ]   
+          )
+        self.generative_net = tf.keras.Sequential(
+            [
+            tf.keras.layers.InputLayer(input_shape=(latent_dim,)),
+            tf.keras.layers.Dense(units=inner_shape[0]*inner_shape[1]
+                               *inner_shape[2], activation=tf.nn.relu),
+            tf.keras.layers.Reshape(target_shape=(inner_shape)),
+            tf.keras.layers.Conv2DTranspose(
+              filters=32,
+              kernel_size=4,
+              strides=(2, 2),
+              padding="SAME",
+              activation='relu'),
+            tf.keras.layers.Conv2DTranspose(
+              filters=16,
+              kernel_size=4,
+              strides=(2, 2),
+              padding="SAME",
+              activation='relu'),
+            # No activation
+            tf.keras.layers.Conv2DTranspose(
+              filters=1, kernel_size=1, strides=(1, 1), padding="SAME"),
+            ]
+            )
 
-    '''
+    @tf.function
+    def sample(self, eps=None):
+        if eps is None:
+            eps = tf.random.normal(shape=(100, self.latent_dim))
+        return self.decode(eps, apply_sigmoid=True)
 
-    input_img = Input(shape=input_shape)  # adapt this if using `channels_first` image data format
+    def encode(self, x):
+        mean, logvar = tf.split(self.inference_net(x), num_or_size_splits=2, axis=1)
+        return mean, logvar
 
-    x = Conv2D(256, (3, 3), activation='relu', padding='same')(input_img)
-    x = MaxPooling2D((2, 2), padding='same')(x)
-    x = Conv2D(128, (3, 3), activation='relu', padding='same')(x)
-    x = MaxPooling2D((2, 2), padding='same')(x)
-    x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
-    x = MaxPooling2D((2, 2), padding='same')(x)
-    x = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
-    encoded = MaxPooling2D((2, 2), padding='same')(x)
+    def reparameterize(self, mean, logvar):
+        eps = tf.random.normal(shape=mean.shape)
+        return eps * tf.exp(logvar * .5) + mean
 
-# at this point the representation is (7, 7, 32)
+    def decode(self, z, apply_sigmoid=False):
+        logits = self.generative_net(z)
+        if apply_sigmoid:
+            probs = tf.sigmoid(logits)
+            return probs
 
-    x = Conv2D(32, (3, 3), activation='relu', padding='same')(encoded)
-    x = UpSampling2D((2, 2))(x)
-    x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
-    x = UpSampling2D((2, 2))(x)
-    x = Conv2D(128, (3, 3), activation='relu', padding='same')(x)
-    x = UpSampling2D((2, 2))(x)
-    x = Conv2D(256, (3, 3), activation='relu', padding='same')(x)
-    x = UpSampling2D((2, 2))(x)
-    decoded = Conv2D(1, (3, 3), activation='sigmoid', padding='same')(x)
+        return logits
 
-    autoencoder = Model(input_img, decoded)
+@tf.function
+def compute_loss(model, x, y, sigmoid=False):
+    mean, logvar = model.encode(x)
+    z = model.reparameterize(mean, logvar)
+    x_logit = model.decode(z, apply_sigmoid=sigmoid)
 
-    return Model(input_img, decoded)
+    cross_ent = tf.nn.sigmoid_cross_entropy_with_logits(
+                               logits=x_logit, labels=y)
+    logpx_z = -tf.reduce_sum(cross_ent, axis=[1, 2, 3])
+    logpz = log_normal_pdf(z, 0., 0.)
+    logqz_x = log_normal_pdf(z, mean, logvar)
+    return -tf.reduce_mean(logpx_z + logpz - logqz_x)
+
+@tf.function
+def compute_apply_gradients(model, x, y, optimizer, sigmoid=False):
+    with tf.GradientTape() as tape:
+        loss = compute_loss(model, x, y, sigmoid=sigmoid)
+    gradients = tape.gradient(loss, model.trainable_variables)
+    optimizer.apply_gradients(zip(gradients, model.trainable_variables))
+
+def log_normal_pdf(sample, mean, logvar, raxis=1):
+    log2pi = tf.math.log(2. * np.pi)
+    return tf.reduce_sum(
+        -.5 * ((sample - mean) ** 2. * tf.exp(-logvar) + logvar + log2pi),
+        axis=raxis)

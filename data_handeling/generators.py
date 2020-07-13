@@ -164,7 +164,6 @@ def mask_patch_from_file(datapath, img_dir, mask_dir, patch_size, target_size, t
         patch_range = np.arange(target_size[0]/patch_size[0]*target_size[1]/patch_size[1])
     n_height = int(target_size[0]/patch_size[0])
     n_width = int(target_size[1]/patch_size[1])
-
     while 1:
         epoch += 1
         # Mini-batches within epoch.

@@ -5,6 +5,7 @@ from PIL import Image
 import PIL
 from data_handeling.generators import test_patch_flow_from_file
 import h5py
+import imageio
 
 def read_reconstruct_library(filepath):
     '''
@@ -130,8 +131,13 @@ def inference_binary_segmentation(datapath, patch_shape, img_shape, model,
         imarray = imarray.reshape(rows, cols, h, w).swapaxes(1, 2) \
                   .reshape(h*rows, w*cols)
 
-        ax.imshow(imarray)	
-        # TODO - save 8-bit binary image rahter than RGB
+        fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+        ax[0].imshow(np.squeeze(imageio.imread(imfile)), cmap='gray')	
+        ax[1].imshow(imarray, cmap='gray')	
+        for i in range(2):
+            ax[i].set_xticklabels([])
+            ax[i].set_yticklabels([])
+        # TODO - save 8-bit byyinary image rahter than RGB
         plt.savefig(savepath + '{}_{:05d}.tif'.format(file_prefix, imnum))
 
     return

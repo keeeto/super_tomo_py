@@ -18,7 +18,7 @@ Generate the data. We have some scripts to generate sample data for this task. `
 Alternatively download sample data from here: http://tiny.cc/vdl9rz
 
 .. image:: figures/tomogram.png
-   :width: 1280px
+   :width: 1100px
    :height: 512px
    :scale: 50 %
    :alt: alternate text
@@ -37,7 +37,7 @@ Split the data into training and test data.
    
    from utils.tools import read_reconstruct_library
    import sys
-   sys.path.append('/home/mts87985/ml-tomo/super-resolution-ml/')
+   sys.path.append('/path/to/super-resolution-ml/')
 
    images, sinos, nim = read_reconstruct_library('data/reconstruction/shapes_random_noise_64px_norm.h5')
    index = np.arange(nim)
@@ -92,8 +92,8 @@ This tutorial looks at segmentation of sections of an image, for example collect
 We have a set of images where we have already labelled what the different parts of the image are, now
 we want to train and apply a model to another set, labelling new X-ray images.
 
-.. image:: figures/x-ray-image.png
-   :width: 1280px
+.. image:: figures/xray-groundtruth.png
+   :width: 512px
    :height: 512px
    :scale: 50 %
    :alt: alternate text
@@ -124,7 +124,7 @@ Also make sure the `superres-ml` package is in your `pythonpath`
    sys.path.append('/path/to/super-resolution-ml/')
 
 Step 1
-~~~~~~
+------
 
 Once the data is in place we are ready to start setting up the U-net.
 Tell the code where to find the images and masks, the types of file to
@@ -139,7 +139,7 @@ expect.
    ftypes= ['./tiff'] # (<filetypes to look for>) # e.g. ('.tif')
 
 Step 2
-~~~~~~
+------
 
 Set up the information about the size of the original image and the size of the 
 patches to take from the image. Also here you can define a list of which patches
@@ -155,7 +155,7 @@ top to bottom. If the patch list is left empty the generator uses all patches.
    patch_range = []
 
 Step 3
-~~~~~~
+------
 
 Set up the generator. This is the function that will flow the patches from the images
 to the netowrk for training.
@@ -181,7 +181,7 @@ to the netowrk for training.
                            normalise_images=False)
 
 Step 4
-~~~~~~
+------
 
 Define the netowrk architecture, the hyperparameters and the training time.
 Here the input size is the dimension of the patches, also we have just 1 
@@ -191,18 +191,18 @@ training.
 
 .. code:: python
 
-   from models.u_net.model import unet
+   from models.u_net.model import unet_3layer
    import models.losses.custom_loss_functions as losses
    from tensorflow.keras.optimizers import Adam
 
-   model = unet(input_size = (patch_shape[0], patch_shape[1], 1))
+   model = unet_3layer(input_size = (patch_shape[0], patch_shape[1], 1))
    opt = Adam()
    model.compile(loss=losses.weighted_cross_entropy(2), optimizer=opt,
               metrics=["accuracy"])
 
 
 Step 5
-~~~~~~
+------
 
 Train and save! 
 
@@ -215,7 +215,7 @@ Train and save!
    model.save_weights('saved_weights.hdf5')
 
 Step 6
-~~~~~~
+------
 
 Run the model for inference. Having trained the model on some images you can now try to deploy on
 new examples. We have the :meth:`utils.tools.inference_binary_segmentation` helper
@@ -237,6 +237,86 @@ function to do this. First we load up the saved model and weights.
 
 In the `inferred_masks` directory there should now be a masking file something like:
 
-.. image:: figures/x-ray-mask.png
+.. image:: figures/segmented.png
 
+Denoising of X-ray images
+##########################
 
+Variational Autoencoder
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Often images that are reconstructed  contain low signal to noise ratios, if the dose was low or
+the collection time short. In these cases it would often be desireable to remove the noise and 
+accentuate the signal in an image. We can do this using a Variational Autoencoder (VAE)
+
+.. image:: figures/noise-truth.png
+   :width: 1024px
+   :height: 512px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+Step 0
+------
+
+Set up the data. You can use the `data/denoising/generatedata.py` script to generate some example data. 
+Then use the helper functions `build_list_images` and `build_autoencoder_data` to build the data set 
+ready to train the VAE.
+
+We need to specify the data shape with the `input_data` keyword and then specify directories to find 
+the training and validation inputs and labels.
+
+.. code:: python
+
+   import sys
+   sys.path.append('/path/to/super-resolution-ml/')
+   from data_handeling.tools import build_list_images
+   from models.autoencoder.tools import build_autoencoder_data
+
+   input_data = (64, 64, 1)
+
+   datapath = '../data/denoising/train/noisy/'
+   Xfiles = build_list_images(datapath, types = ['.tiff'])
+   datapath = '../data/denoising/train/noiseless/'
+   yfiles = build_list_images(datapath, types = ['.tiff'])
+   X, labels = build_autoencoder_data(Xfiles, yfiles=yfiles, input_data=input_data)
+   datapath = '../data/denoising/test/noisy/'
+   Xfiles = build_list_images(datapath, types = ['.tiff'])
+   datapath = '../data/denoising/test/noiseless/'
+   yfiles = build_list_images(datapath, types = ['.tiff'])
+   xtest, ltest = build_autoencoder_data(Xfiles, yfiles, input_data=input_data)
+
+Step 1
+------
+
+Set up the VAE. Here we import the model as well as functions to train and run the model and 
+an optimiser. We need to set the number of units to use in the bottle-neck (latent) space. 
+
+.. code:: python
+
+   from models.autoencoder.models import CVAE
+   from models.autoencoder.tools import vae_train, vae_inference
+   from tensorflow.keras.optimizers import Adam
+
+   latent_dim = 16
+   optimizer = Adam(lr=0.0001)
+   epochs = 500
+   model = CVAE(latent_dim, input_data)
+
+Step 2
+------
+
+Train the model. Using the vae_train function set the model to train.
+
+.. code:: python
+
+   vae_train(model, X, labels, xtest, ltest, epochs, optimizer, sigmoid=False)
+
+Step 3
+------
+
+Try the trained model out on some of the test data.
+
+.. code:: python
+
+   out = vae_inference(model, np.expand_dims(X[9], axis=0), sigmoid=True)

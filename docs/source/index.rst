@@ -9,6 +9,7 @@
    :maxdepth: 2
    :caption: Documentation:
 
+   about
    models
    tutorials
    loss_functions
