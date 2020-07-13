@@ -59,7 +59,7 @@ def generate():
             tp=0
         i+=1
 
-    imn = im+np.random.normal(size=im.shape)
+    imn = im+np.random.normal(size=im.shape, scale = 0.3)
     return imn, im, l
 
 pth = Path('train')
