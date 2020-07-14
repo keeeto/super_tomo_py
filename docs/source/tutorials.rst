@@ -191,7 +191,7 @@ training.
 
 .. code:: python
 
-   from models.u_net.model import unet_3layer
+   from models.u_net.models import unet_3layer
    import models.losses.custom_loss_functions as losses
    from tensorflow.keras.optimizers import Adam
 
