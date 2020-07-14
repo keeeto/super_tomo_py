@@ -14,6 +14,25 @@ cnn_reconstruct
 This module contains a CNN model for tomographic image reconstruction. For more details on 
 how to use this follow the tutorial on reconstruction with a CNN.
 
+.. image:: figures/cnn-reconstruct.png
+   :width: 1100px
+   :height: 512px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+dense_reconstruct
+##################
+
+This module contains a densely connected model for tomographic image reconstruction. For more details on 
+how to use this follow the tutorial on reconstruction with a dense network.
+
+.. image:: figures/dense.png
+   :width: 1100px
+   :height: 512px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
 AlexNet
 #######
 
@@ -31,10 +50,18 @@ an image of the same size as the original. Doing this a U-Net can convert pixels
 image into label values and segment the image. U-nets were initially developed for biomedical 
 image segmentation. [2]_
 
+.. image:: figures/unet.png
+   :width: 1100px
+   :height: 512px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
 Autoencoder
 ###########
 
-TBC
+An autoencoder is a type of artificial neural network used to learn efficient data codings in an unsupervised manner.[3]_ The aim of an autoencoder is to learn a representation (encoding) for a set of data, typically for dimensionality reduction, by training the network to ignore signal “noise”. For this reason autoencoders can be used for denoising images.
 
 References
 ##########
@@ -44,3 +71,4 @@ References
     (6): 84–90
 .. [2] Ronneberger, Olaf; Fischer, Philipp; Brox, Thomas (2015). "U-Net: Convolutional 
     Networks for Biomedical Image Segmentation". arXiv:1505.04597
+.. [3]  Vincent, Pascal; Larochelle, Hugo (2010). "Stacked Denoising Autoencoders: Learning Useful Representations in a Deep Network with a Local Denoising Criterion". Journal of Machine Learning Research. 11: 3371–3408

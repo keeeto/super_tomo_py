@@ -7,6 +7,13 @@ reconstruction of X-ray images. The package also includes models and scripts use
 of the images generated, allowing tasks such as semantic segmentation of very large images and removing
 noise from low dose images.
 
+.. image:: figures/cnn-reconstruct.png
+   :width: 1100px
+   :height: 512px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
 The tasks possible with `superres-tomo` are
     * Image reconstruction
     * Image segmentation

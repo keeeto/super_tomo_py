@@ -87,6 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Models available</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#cnn-reconstruct">cnn_reconstruct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dense-reconstruct">dense_reconstruct</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#alexnet">AlexNet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#u-net">U-Net</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#autoencoder">Autoencoder</a></li>
@@ -171,6 +172,13 @@ tutorials.</p>
 <h2>cnn_reconstruct<a class="headerlink" href="#cnn-reconstruct" title="Permalink to this headline">¶</a></h2>
 <p>This module contains a CNN model for tomographic image reconstruction. For more details on
 how to use this follow the tutorial on reconstruction with a CNN.</p>
+<a class="reference internal image-reference" href="_images/cnn-reconstruct.png"><img alt="alternate text" class="align-center" src="_images/cnn-reconstruct.png" style="width: 550.0px; height: 256.0px;" /></a>
+</div>
+<div class="section" id="dense-reconstruct">
+<h2>dense_reconstruct<a class="headerlink" href="#dense-reconstruct" title="Permalink to this headline">¶</a></h2>
+<p>This module contains a densely connected model for tomographic image reconstruction. For more details on
+how to use this follow the tutorial on reconstruction with a dense network.</p>
+<a class="reference internal image-reference" href="_images/dense.png"><img alt="alternate text" class="align-center" src="_images/dense.png" style="width: 550.0px; height: 256.0px;" /></a>
 </div>
 <div class="section" id="alexnet">
 <h2>AlexNet<a class="headerlink" href="#alexnet" title="Permalink to this headline">¶</a></h2>
@@ -186,10 +194,11 @@ of convolution layers mirrored by deconvolution layers, squeezing down and then 
 an image of the same size as the original. Doing this a U-Net can convert pixels in the original
 image into label values and segment the image. U-nets were initially developed for biomedical
 image segmentation. <a class="footnote-reference brackets" href="#id4" id="id2">2</a></p>
+<a class="reference internal image-reference" href="_images/unet.png"><img alt="alternate text" class="align-center" src="_images/unet.png" style="width: 550.0px; height: 256.0px;" /></a>
 </div>
 <div class="section" id="autoencoder">
 <h2>Autoencoder<a class="headerlink" href="#autoencoder" title="Permalink to this headline">¶</a></h2>
-<p>TBC</p>
+<p>An autoencoder is a type of artificial neural network used to learn efficient data codings in an unsupervised manner.[3]_ The aim of an autoencoder is to learn a representation (encoding) for a set of data, typically for dimensionality reduction, by training the network to ignore signal “noise”. For this reason autoencoders can be used for denoising images.</p>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
@@ -202,6 +211,9 @@ classification with deep convolutional neural networks” (PDF). Communications 
 <dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
 <dd><p>Ronneberger, Olaf; Fischer, Philipp; Brox, Thomas (2015). “U-Net: Convolutional
 Networks for Biomedical Image Segmentation”. arXiv:1505.04597</p>
+</dd>
+<dt class="label" id="id5"><span class="brackets">3</span></dt>
+<dd><p>Vincent, Pascal; Larochelle, Hugo (2010). “Stacked Denoising Autoencoders: Learning Useful Representations in a Deep Network with a Local Denoising Criterion”. Journal of Machine Learning Research. 11: 3371–3408</p>
 </dd>
 </dl>
 </div>
