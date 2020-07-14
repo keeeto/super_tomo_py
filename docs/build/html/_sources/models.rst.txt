@@ -1,0 +1,46 @@
+****************
+Models available
+****************
+
+This is a list and a brief description of the various models that are currently available 
+in `superres-tomo`. More detailed information about each of the models can be found in 
+their individual module documentaion. Additionally example use cases are provided in the
+tutorials.
+
+
+cnn_reconstruct
+###############
+
+This module contains a CNN model for tomographic image reconstruction. For more details on 
+how to use this follow the tutorial on reconstruction with a CNN.
+
+AlexNet
+#######
+
+AlexNet is a specific instance of a CNN. It became famous in 2012, when it outperformed all of 
+the competition in the ImageNet challenge. AlexNet contains eight layers; the first five are 
+convolutional layers, some of them followed by max-pooling layers, and the last three are fully 
+connected layers. [1]_ It uses the ReLU activation function.
+
+U-Net
+#####
+
+The U-net architecture is particularly popular in image segmentation tasks. The model consists
+of convolution layers mirrored by deconvolution layers, squeezing down and then reconstructing 
+an image of the same size as the original. Doing this a U-Net can convert pixels in the original
+image into label values and segment the image. U-nets were initially developed for biomedical 
+image segmentation. [2]_
+
+Autoencoder
+###########
+
+TBC
+
+References
+##########
+
+.. [1]  Krizhevsky, Alex; Sutskever, Ilya; Hinton, Geoffrey E. (2017-05-24). "ImageNet 
+    classification with deep convolutional neural networks" (PDF). Communications of the ACM. 60 
+    (6): 84–90
+.. [2] Ronneberger, Olaf; Fischer, Philipp; Brox, Thomas (2015). "U-Net: Convolutional 
+    Networks for Biomedical Image Segmentation". arXiv:1505.04597

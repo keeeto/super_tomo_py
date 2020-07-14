@@ -1,0 +1,507 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tutorials &mdash; superres-ml 0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Loss functions" href="loss_functions.html" />
+    <link rel="prev" title="Models available" href="models.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> superres-ml
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models available</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tomographic-reconstructions">Tomographic reconstructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reconstruction-with-a-cnn">Reconstruction with a CNN</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#step-0">Step 0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-1">Step 1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-2">Step 2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-3">Step 3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#segmentation-of-x-ray-images">Segmentation of X-ray images</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#binary-segmentation">Binary segmentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Step 0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Step 1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Step 2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Step 3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-4">Step 4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-5">Step 5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-6">Step 6</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#denoising-of-x-ray-images">Denoising of X-ray images</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#variational-autoencoder">Variational Autoencoder</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Step 0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">Step 1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">Step 2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">Step 3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="loss_functions.html">Loss functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark_data.html">Benchmark Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Python API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">superres-ml</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Tutorials</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tutorials.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tutorials">
+<h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tomographic-reconstructions">
+<h2>Tomographic reconstructions<a class="headerlink" href="#tomographic-reconstructions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="reconstruction-with-a-cnn">
+<h3>Reconstruction with a CNN<a class="headerlink" href="#reconstruction-with-a-cnn" title="Permalink to this headline">¶</a></h3>
+<p>In this tutorial we will reconstruct an image from a sinogram using a convolutional neural network.
+We have a network architecture for this task: <cite>models.cnn_reconstruct.models.reconstruct_cnn</cite></p>
+<div class="section" id="step-0">
+<h4>Step 0<a class="headerlink" href="#step-0" title="Permalink to this headline">¶</a></h4>
+<p>Generate the data. We have some scripts to generate sample data for this task. <cite>LibShapes.py</cite>
+Alternatively download sample data from here: <a class="reference external" href="http://tiny.cc/vdl9rz">http://tiny.cc/vdl9rz</a></p>
+<a class="reference internal image-reference" href="_images/tomogram.png"><img alt="alternate text" class="align-center" src="_images/tomogram.png" style="width: 550.0px; height: 256.0px;" /></a>
+</div>
+<div class="section" id="step-1">
+<h4>Step 1<a class="headerlink" href="#step-1" title="Permalink to this headline">¶</a></h4>
+<p>When the data is generated we now load it up. Use the <cite>utils.tools.read_reconstruct_library</cite> helper
+function to make this easier. We then shuffle around the image/sinogram pairs to make sure that
+we don’t have any false ordering. We alsoe need to make sure that <cite>superres-ml</cite> is on our <cite>pythonpath</cite>.
+Split the data into training and test data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utils.tools</span> <span class="kn">import</span> <span class="n">read_reconstruct_library</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/path/to/super-resolution-ml/&#39;</span><span class="p">)</span>
+
+<span class="n">images</span><span class="p">,</span> <span class="n">sinos</span><span class="p">,</span> <span class="n">nim</span> <span class="o">=</span> <span class="n">read_reconstruct_library</span><span class="p">(</span><span class="s1">&#39;data/reconstruction/shapes_random_noise_64px_norm.h5&#39;</span><span class="p">)</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nim</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+<span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="n">index</span><span class="p">,:,:,:]</span>
+<span class="n">sinograms</span> <span class="o">=</span> <span class="n">sinos</span><span class="p">[</span><span class="n">index</span><span class="p">,:,:,:]</span>
+<span class="n">sinograms_test</span> <span class="o">=</span> <span class="n">sinograms</span><span class="p">[</span><span class="mi">9000</span><span class="p">:]</span>
+<span class="n">images_test</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="mi">9000</span><span class="p">:]</span>
+<span class="n">sinograms</span> <span class="o">=</span> <span class="n">sinograms</span><span class="p">[:</span><span class="mi">9000</span><span class="p">]</span>
+<span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="p">[:</span><span class="mi">9000</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-2">
+<h4>Step 2<a class="headerlink" href="#step-2" title="Permalink to this headline">¶</a></h4>
+<p>Set up the network. We import the <cite>reconstruct_cnn</cite> netowrk from out <cite>superres-ml</cite> model library.
+We then compile the network to use the <cite>Adam</cite> optimiser and to monitor the <cite>mae</cite> and <cite>mse</cite> during
+training. We add a callback, which makes the training stop if the metrics have not improved for
+three steps.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.callbacks</span> <span class="kn">import</span> <span class="n">EarlyStopping</span>
+<span class="kn">from</span> <span class="nn">models.cnn_reconstruct.models</span> <span class="kn">import</span> <span class="n">reconstruct_cnn</span>
+
+<span class="n">model_rec</span> <span class="o">=</span> <span class="n">reconstruct_cnn</span><span class="p">(</span><span class="n">sinos</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sinos</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">model_rec</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">lr</span> <span class="o">=</span> <span class="mf">0.000025</span><span class="p">),</span> <span class="n">loss</span> <span class="o">=</span> <span class="s1">&#39;mean_squared_error&#39;</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mae&#39;</span><span class="p">,</span> <span class="s1">&#39;mse&#39;</span><span class="p">])</span>
+<span class="n">my_callbacks</span> <span class="o">=</span> <span class="p">[</span><span class="n">EarlyStopping</span><span class="p">(</span><span class="n">patience</span><span class="o">=</span><span class="mi">3</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-3">
+<h4>Step 3<a class="headerlink" href="#step-3" title="Permalink to this headline">¶</a></h4>
+<p>Train the model!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">training</span> <span class="o">=</span> <span class="n">model_rec</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">sinograms</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span>
+                      <span class="n">validation_split</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+                      <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+                      <span class="n">epochs</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+                      <span class="n">verbose</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+                      <span class="n">callbacks</span><span class="o">=</span><span class="n">my_callbacks</span><span class="p">)</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model_rec</span><span class="o">.</span><span class="n">history</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="segmentation-of-x-ray-images">
+<h2>Segmentation of X-ray images<a class="headerlink" href="#segmentation-of-x-ray-images" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="binary-segmentation">
+<h3>Binary segmentation<a class="headerlink" href="#binary-segmentation" title="Permalink to this headline">¶</a></h3>
+<p>This tutorial looks at segmentation of sections of an image, for example collected from X-ray imaging.
+We have a set of images where we have already labelled what the different parts of the image are, now
+we want to train and apply a model to another set, labelling new X-ray images.</p>
+<a class="reference internal image-reference" href="_images/xray-groundtruth.png"><img alt="alternate text" class="align-center" src="_images/xray-groundtruth.png" style="width: 256.0px; height: 256.0px;" /></a>
+<p>To do this we will use a U-net architecture. There is one big challenge in using most U-net
+architectures that you will find on the web.</p>
+<blockquote>
+<div><p>The image sizes are very large. This means that the image and the model cannot fit
+together in the memory.</p>
+</div></blockquote>
+<p>To overcome the problem we will use a routine in <cite>superres-tomo</cite> to create patches from
+the image and learn sequentially from each patch. To do do this we have implemented the
+<cite>data_handeling.generators.mask_patch_from_file</cite> function which acts as a
+generator to feed the network for training.</p>
+<div class="section" id="id1">
+<h4>Step 0<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>Generate the data. There is a helper script in the directory <cite>data/segmentation</cite> run this to generate
+the data for this tutorial. Run this script to generate the data for this tutorial.</p>
+<p>Also make sure the <cite>superres-ml</cite> package is in your <cite>pythonpath</cite></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/path/to/super-resolution-ml/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h4>Step 1<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>Once the data is in place we are ready to start setting up the U-net.
+Tell the code where to find the images and masks, the types of file to
+expect.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">datapath</span><span class="o">=</span> <span class="s1">&#39;data/segmentation/train/&#39;</span> <span class="c1">#&lt;the root directory of images and masks for training&gt;</span>
+<span class="n">valpath</span><span class="o">=</span> <span class="s1">&#39;data/segmentation/val/&#39;</span> <span class="c1">#&lt;the root directory of images and masks for validation&gt;</span>
+<span class="n">img_dir</span><span class="o">=</span> <span class="s1">&#39;noiseless/&#39;</span> <span class="c1"># &lt;the subdirectory where images are&gt;</span>
+<span class="n">mask_dir</span><span class="o">=</span> <span class="s1">&#39;label/&#39;</span> <span class="c1">#&lt;the subdirectory where masks are&gt;</span>
+<span class="n">ftypes</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;./tiff&#39;</span><span class="p">]</span> <span class="c1"># (&lt;filetypes to look for&gt;) # e.g. (&#39;.tif&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h4>Step 2<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<p>Set up the information about the size of the original image and the size of the
+patches to take from the image. Also here you can define a list of which patches
+to use. This last feature is useful when the interesting features are only in a
+section of the image. You can specify the particular patches to consider for the
+training. The numbering of patches starts from zero and proceeds left to right
+top to bottom. If the patch list is left empty the generator uses all patches.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="mi">1280</span><span class="p">)</span>
+<span class="n">patch_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+<span class="n">patch_range</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h4>Step 3<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<p>Set up the generator. This is the function that will flow the patches from the images
+to the netowrk for training.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">data_handeling.generators</span> <span class="kn">import</span> <span class="n">mask_patch_from_file</span>
+
+<span class="n">myGene</span> <span class="o">=</span> <span class="n">mask_patch_from_file</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span>
+                           <span class="n">img_dir</span><span class="p">,</span> <span class="n">mask_dir</span><span class="p">,</span>
+                           <span class="n">patch_shape</span><span class="p">,</span> <span class="n">image_shape</span><span class="p">,</span>
+                           <span class="n">types</span> <span class="o">=</span> <span class="n">ftypes</span><span class="p">,</span> <span class="n">patch_range</span><span class="o">=</span><span class="n">patch_range</span><span class="p">,</span>
+                           <span class="n">debug</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                           <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                           <span class="n">normalise_images</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="n">valGene</span> <span class="o">=</span> <span class="n">mask_patch_from_file</span><span class="p">(</span><span class="n">valpath</span><span class="p">,</span>
+                        <span class="n">img_dir</span><span class="p">,</span> <span class="n">mask_dir</span><span class="p">,</span>
+                        <span class="n">patch_shape</span><span class="p">,</span> <span class="n">image_shape</span><span class="p">,</span>
+                        <span class="n">types</span> <span class="o">=</span> <span class="n">ftypes</span><span class="p">,</span> <span class="n">patch_range</span><span class="o">=</span><span class="n">patch_range</span><span class="p">,</span>
+                        <span class="n">debug</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                        <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="n">normalise_images</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-4">
+<h4>Step 4<a class="headerlink" href="#step-4" title="Permalink to this headline">¶</a></h4>
+<p>Define the netowrk architecture, the hyperparameters and the training time.
+Here the input size is the dimension of the patches, also we have just 1
+channel as the image is greyscale. We use a standard Adam optimiser. We use
+<cite>binary_crossentropy</cite> as the loss function and also monitor the accuracy during
+training.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">models.u_net.model</span> <span class="kn">import</span> <span class="n">unet_3layer</span>
+<span class="kn">import</span> <span class="nn">models.losses.custom_loss_functions</span> <span class="kn">as</span> <span class="nn">losses</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">unet_3layer</span><span class="p">(</span><span class="n">input_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">patch_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">patch_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">losses</span><span class="o">.</span><span class="n">weighted_cross_entropy</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">opt</span><span class="p">,</span>
+           <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-5">
+<h4>Step 5<a class="headerlink" href="#step-5" title="Permalink to this headline">¶</a></h4>
+<p>Train and save!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">steps_per_epoch</span> <span class="o">=</span> <span class="mi">2000</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">myGene</span><span class="p">,</span> <span class="n">steps_per_epoch</span><span class="o">=</span><span class="n">steps_per_epoch</span><span class="p">,</span>
+          <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="n">valGene</span><span class="p">,</span> <span class="n">validation_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save_weights</span><span class="p">(</span><span class="s1">&#39;saved_weights.hdf5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-6">
+<h4>Step 6<a class="headerlink" href="#step-6" title="Permalink to this headline">¶</a></h4>
+<p>Run the model for inference. Having trained the model on some images you can now try to deploy on
+new examples. We have the <code class="xref py py-meth docutils literal notranslate"><span class="pre">utils.tools.inference_binary_segmentation()</span></code> helper
+function to do this. First we load up the saved model and weights.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span>  <span class="nn">utils.tools</span> <span class="kn">import</span> <span class="n">inference_binary_segmentation</span>
+
+<span class="n">datapath</span> <span class="o">=</span> <span class="s1">&#39;data/segmentation/test/noiseless/&#39;</span>
+<span class="n">patch_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+<span class="n">image_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="mi">1280</span><span class="p">)</span>
+<span class="n">savepath</span> <span class="o">=</span> <span class="s1">&#39;./inferred_masks/&#39;</span>
+
+<span class="n">inference_binary_segmentation</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="n">patch_shape</span><span class="p">,</span> <span class="n">image_shape</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span>
+              <span class="n">file_prefix</span><span class="o">=</span><span class="s1">&#39;binary_mask&#39;</span><span class="p">,</span> <span class="n">savepath</span><span class="o">=</span><span class="n">savepath</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+             <span class="n">normim</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the <cite>inferred_masks</cite> directory there should now be a masking file something like:</p>
+<img alt="_images/segmented.png" src="_images/segmented.png" />
+</div>
+</div>
+</div>
+<div class="section" id="denoising-of-x-ray-images">
+<h2>Denoising of X-ray images<a class="headerlink" href="#denoising-of-x-ray-images" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="variational-autoencoder">
+<h3>Variational Autoencoder<a class="headerlink" href="#variational-autoencoder" title="Permalink to this headline">¶</a></h3>
+<p>Often images that are reconstructed  contain low signal to noise ratios, if the dose was low or
+the collection time short. In these cases it would often be desireable to remove the noise and
+accentuate the signal in an image. We can do this using a Variational Autoencoder (VAE)</p>
+<a class="reference internal image-reference" href="_images/noise-truth.png"><img alt="alternate text" class="align-center" src="_images/noise-truth.png" style="width: 512.0px; height: 256.0px;" /></a>
+<div class="section" id="id5">
+<h4>Step 0<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>Set up the data. You can use the <cite>data/denoising/generatedata.py</cite> script to generate some example data.
+Then use the helper functions <cite>build_list_images</cite> and <cite>build_autoencoder_data</cite> to build the data set
+ready to train the VAE.</p>
+<p>We need to specify the data shape with the <cite>input_data</cite> keyword and then specify directories to find
+the training and validation inputs and labels.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/path/to/super-resolution-ml/&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">data_handeling.tools</span> <span class="kn">import</span> <span class="n">build_list_images</span>
+<span class="kn">from</span> <span class="nn">models.autoencoder.tools</span> <span class="kn">import</span> <span class="n">build_autoencoder_data</span>
+
+<span class="n">input_data</span> <span class="o">=</span> <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">datapath</span> <span class="o">=</span> <span class="s1">&#39;../data/denoising/train/noisy/&#39;</span>
+<span class="n">Xfiles</span> <span class="o">=</span> <span class="n">build_list_images</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.tiff&#39;</span><span class="p">])</span>
+<span class="n">datapath</span> <span class="o">=</span> <span class="s1">&#39;../data/denoising/train/noiseless/&#39;</span>
+<span class="n">yfiles</span> <span class="o">=</span> <span class="n">build_list_images</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.tiff&#39;</span><span class="p">])</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">build_autoencoder_data</span><span class="p">(</span><span class="n">Xfiles</span><span class="p">,</span> <span class="n">yfiles</span><span class="o">=</span><span class="n">yfiles</span><span class="p">,</span> <span class="n">input_data</span><span class="o">=</span><span class="n">input_data</span><span class="p">)</span>
+<span class="n">datapath</span> <span class="o">=</span> <span class="s1">&#39;../data/denoising/test/noisy/&#39;</span>
+<span class="n">Xfiles</span> <span class="o">=</span> <span class="n">build_list_images</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.tiff&#39;</span><span class="p">])</span>
+<span class="n">datapath</span> <span class="o">=</span> <span class="s1">&#39;../data/denoising/test/noiseless/&#39;</span>
+<span class="n">yfiles</span> <span class="o">=</span> <span class="n">build_list_images</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.tiff&#39;</span><span class="p">])</span>
+<span class="n">xtest</span><span class="p">,</span> <span class="n">ltest</span> <span class="o">=</span> <span class="n">build_autoencoder_data</span><span class="p">(</span><span class="n">Xfiles</span><span class="p">,</span> <span class="n">yfiles</span><span class="p">,</span> <span class="n">input_data</span><span class="o">=</span><span class="n">input_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h4>Step 1<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>Set up the VAE. Here we import the model as well as functions to train and run the model and
+an optimiser. We need to set the number of units to use in the bottle-neck (latent) space.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">models.autoencoder.models</span> <span class="kn">import</span> <span class="n">CVAE</span>
+<span class="kn">from</span> <span class="nn">models.autoencoder.tools</span> <span class="kn">import</span> <span class="n">vae_train</span><span class="p">,</span> <span class="n">vae_inference</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span>
+
+<span class="n">latent_dim</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">)</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CVAE</span><span class="p">(</span><span class="n">latent_dim</span><span class="p">,</span> <span class="n">input_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h4>Step 2<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<p>Train the model. Using the vae_train function set the model to train.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vae_train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">xtest</span><span class="p">,</span> <span class="n">ltest</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">sigmoid</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h4>Step 3<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<p>Try the trained model out on some of the test data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">vae_inference</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">sigmoid</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/noise-cleaned.png"><img alt="alternate text" class="align-center" src="_images/noise-cleaned.png" style="width: 506.0px; height: 256.0px;" /></a>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="loss_functions.html" class="btn btn-neutral float-right" title="Loss functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="models.html" class="btn btn-neutral float-left" title="Models available" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Keith T. Butler
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
