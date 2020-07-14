@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Models available &mdash; superres-ml 0.0 documentation</title>
+  <title>models package &mdash; superres-ml 0.0 documentation</title>
   
 
   
@@ -37,8 +37,8 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tutorials" href="tutorials.html" />
-    <link rel="prev" title="About" href="about.html" /> 
+    <link rel="next" title="models.alex_net package" href="models.alex_net.html" />
+    <link rel="prev" title="data_handeling package" href="data_handeling.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -85,18 +85,26 @@
               <p class="caption"><span class="caption-text">Documentation:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Models available</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#cnn-reconstruct">cnn_reconstruct</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#alexnet">AlexNet</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#u-net">U-Net</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#autoencoder">Autoencoder</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="model_descriptions.html">Models available</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="loss_functions.html">Loss functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="benchmark_data.html">Benchmark Datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Python API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="data_handeling.html">data_handeling package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">models package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.alex_net.html">models.alex_net package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.autoencoder.html">models.autoencoder package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.cnn_reconstruct.html">models.cnn_reconstruct package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.losses.html">models.losses package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.u_net.html">models.u_net package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -142,7 +150,9 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Models available</li>
+          <li><a href="modules.html">super-resolution-ml</a> &raquo;</li>
+        
+      <li>models package</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -161,49 +171,48 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="models-available">
-<h1>Models available<a class="headerlink" href="#models-available" title="Permalink to this headline">¶</a></h1>
-<p>This is a list and a brief description of the various models that are currently available
-in <cite>superres-tomo</cite>. More detailed information about each of the models can be found in
-their individual module documentaion. Additionally example use cases are provided in the
-tutorials.</p>
-<div class="section" id="cnn-reconstruct">
-<h2>cnn_reconstruct<a class="headerlink" href="#cnn-reconstruct" title="Permalink to this headline">¶</a></h2>
-<p>This module contains a CNN model for tomographic image reconstruction. For more details on
-how to use this follow the tutorial on reconstruction with a CNN.</p>
+  <div class="section" id="models-package">
+<h1>models package<a class="headerlink" href="#models-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="models.alex_net.html">models.alex_net package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="models.alex_net.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.alex_net.html#models-alex-net-model-module">models.alex_net.model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.alex_net.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="models.autoencoder.html">models.autoencoder package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="models.autoencoder.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.autoencoder.html#models-autoencoder-models-module">models.autoencoder.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.autoencoder.html#models-autoencoder-tools-module">models.autoencoder.tools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.autoencoder.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="models.cnn_reconstruct.html">models.cnn_reconstruct package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="models.cnn_reconstruct.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.cnn_reconstruct.html#models-cnn-reconstruct-models-module">models.cnn_reconstruct.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.cnn_reconstruct.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="models.losses.html">models.losses package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="models.losses.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.losses.html#models-losses-custom-loss-functions-module">models.losses.custom_loss_functions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.losses.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="models.u_net.html">models.u_net package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="models.u_net.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.u_net.html#models-u-net-model-module">models.u_net.model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.u_net.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
 </div>
-<div class="section" id="alexnet">
-<h2>AlexNet<a class="headerlink" href="#alexnet" title="Permalink to this headline">¶</a></h2>
-<p>AlexNet is a specific instance of a CNN. It became famous in 2012, when it outperformed all of
-the competition in the ImageNet challenge. AlexNet contains eight layers; the first five are
-convolutional layers, some of them followed by max-pooling layers, and the last three are fully
-connected layers. <a class="footnote-reference brackets" href="#id3" id="id1">1</a> It uses the ReLU activation function.</p>
 </div>
-<div class="section" id="u-net">
-<h2>U-Net<a class="headerlink" href="#u-net" title="Permalink to this headline">¶</a></h2>
-<p>The U-net architecture is particularly popular in image segmentation tasks. The model consists
-of convolution layers mirrored by deconvolution layers, squeezing down and then reconstructing
-an image of the same size as the original. Doing this a U-Net can convert pixels in the original
-image into label values and segment the image. U-nets were initially developed for biomedical
-image segmentation. <a class="footnote-reference brackets" href="#id4" id="id2">2</a></p>
-</div>
-<div class="section" id="autoencoder">
-<h2>Autoencoder<a class="headerlink" href="#autoencoder" title="Permalink to this headline">¶</a></h2>
-<p>TBC</p>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Krizhevsky, Alex; Sutskever, Ilya; Hinton, Geoffrey E. (2017-05-24). “ImageNet
-classification with deep convolutional neural networks” (PDF). Communications of the ACM. 60
-(6): 84–90</p>
-</dd>
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>Ronneberger, Olaf; Fischer, Philipp; Brox, Thomas (2015). “U-Net: Convolutional
-Networks for Biomedical Image Segmentation”. arXiv:1505.04597</p>
-</dd>
-</dl>
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -215,10 +224,10 @@ Networks for Biomedical Image Segmentation”. arXiv:1505.04597</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tutorials.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="models.alex_net.html" class="btn btn-neutral float-right" title="models.alex_net package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="about.html" class="btn btn-neutral float-left" title="About" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="data_handeling.html" class="btn btn-neutral float-left" title="data_handeling package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

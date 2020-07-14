@@ -10,7 +10,7 @@
    :caption: Documentation:
 
    about
-   models
+   model_descriptions
    tutorials
    loss_functions
    benchmark_data

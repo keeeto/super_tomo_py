@@ -1,7 +1,8 @@
-image_models
-============
+super-resolution-ml
+===================
 
 .. toctree::
    :maxdepth: 4
 
-   image_models
+   data_handeling
+   models
