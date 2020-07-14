@@ -3,7 +3,7 @@ Code related to the `Artificial intelligence for reconstruction and super-resolu
 
 ## Intro
 
-This repository contains code for using to neural networks to reconstruct and enhance X-ray tomographs. The networks in this repo are built and tested for tasks in materials science. 
+This repository contains code for using neural networks to reconstruct and enhance X-ray tomographic data. The networks in this repo are built and tested for tasks in materials science. 
 
 ## Contents
 
