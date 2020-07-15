@@ -4,6 +4,15 @@ from tensorflow.keras.layers import Conv2DTranspose
 from tensorflow.keras.models import Model
 
 def reconstruct_cnn(ntr, npr):
+    '''
+    Builds a cnn reconstruction model
+
+    Args:
+       ntr: (int) Number of translation steps
+       npr: (int) Number of tomographic angles
+    Returns:
+       A tensorflow model
+    '''
 
     inputs = Input((ntr, npr, 1))
 

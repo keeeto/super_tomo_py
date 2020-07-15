@@ -5,7 +5,8 @@ from tensorflow.keras.models import Model
 
 def automap(npr, ntr):
    '''
-   builds the Automap model, from Nature volume 555, pages487–492(2018)
+   Builds the Automap model, from Nature volume 555, pages487–492(2018)
+
    Args:
        ntr: (int) Number of translation steps
        npr: (int) Number of tomographic angles

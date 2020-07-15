@@ -49,6 +49,7 @@ def generator_from_df(df, dummy_y, batch_size, target_size, debug=False,
                       debug_merged=False, resize_mode='scale', colormode='grayscale'):
     ''' 
     This generator creates one image per file and flows it to the model. It can be used to rescale/crop the input if needed. 
+
     Args:
         resize_mode: how to resize the image (scale/crop) (string)
 
@@ -133,6 +134,7 @@ def mask_patch_from_file(datapath, img_dir, mask_dir, patch_size, target_size, t
          ----Images
          |
          ----Masks
+
        Args:
            datapath: path to the data
            img_dir: directory with the true images
@@ -224,6 +226,7 @@ def mask_patch_weights_from_file(datapath, img_dir, mask_dir, patch_size, target
          ----Images
          |
          ----Masks
+
        Args:
            datapath: path to the data
            img_dir: directory with the true images
@@ -286,6 +289,7 @@ def mask_patch_weights_from_file(datapath, img_dir, mask_dir, patch_size, target
 def test_patch_flow_from_file(datapath, patch_size, target_size, 
                               debug=False, normalise_images=False):
     """This generator creates sequential patches from an image file and flows each one to the model.
+
        Args:
            datapath: path to the file to convert
            patch_size: size of the patches to take

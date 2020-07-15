@@ -11,6 +11,7 @@ import pandas as pd
 def normalise_discritise_data(img, mask, flag_multi_class=False, num_class=2, debug=False):
     '''
     Processes the image data to make it ready for the NN. Converts mask into a range of integer values. Normalises the image values.
+    
     Args:
         img: The image as an array
         mask: The mask as an array
@@ -48,6 +49,7 @@ def undersample_dataframe(df, label='label'):
     """
     Balances a class imbalanced dataframe by undersampling. Takes the size of the smallest class
     and cuts all classes to that size, randomly selecting members to fit the proportion.
+    
     Args:
         df: The input dataframe (Pandas dataframe object)
 	label: The label of the column to sort by (string, default label)
@@ -73,6 +75,7 @@ def undersample_dataframe(df, label='label'):
 def build_list_images(datapath, types=None):
     '''
     Builds a list of all image files in a given directory
+    
     Args:
         datapath: the location to search
         types: a tuple of the extensions to search, if unspecified a list of defaults is checked

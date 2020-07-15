@@ -7,6 +7,7 @@ from .models import compute_apply_gradients, compute_loss
 def build_autoencoder_data(Xfiles, yfiles=None, input_data=(1, 1, 1)):
     '''
     A helper tool to build an input dataset from a list of files.
+
     Args:
         Xfiles: List of filenames
         yfiles: (optional) list of filenames, if not provided y=X
@@ -31,6 +32,7 @@ def build_autoencoder_data(Xfiles, yfiles=None, input_data=(1, 1, 1)):
 def vae_inference(model, x, sigmoid=False):
    '''
    Run the VAE in inference mode
+
    Args:
        model: a tensorflow model, the VAE itself
        x: the example to run through the model
@@ -43,6 +45,7 @@ def vae_inference(model, x, sigmoid=False):
 def vae_train(model, Xdata, ydata, Xval, yval, epochs, optimizer, sigmoid=False):
     '''
     Train the VAE model.    
+
     Args:
        model: a tensorflow model, the VAE itself
        xdata: training inputs

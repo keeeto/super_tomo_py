@@ -5,6 +5,7 @@ from tensorflow.keras.models import Model
 def dense_reconstruct(ntr, npr):
     '''
     Builds a dense reconstruction model
+
     Args:
        ntr: (int) Number of translation steps
        npr: (int) Number of tomographic angles

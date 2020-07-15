@@ -2,12 +2,17 @@ from tensorflow.keras import backend as keras
 import tensorflow as tf
 
 def dice_coef(y_true, y_pred):
-    '''
-    Params: y_true -- the labeled mask corresponding to an rgb image
-            y_pred -- the predicted mask of an rgb image
-    Returns: dice_coeff -- A metric that accounts for precision and recall
+    ''' 
+    Calculate the dice loss
+
+    Args: 
+         y_true: the labeled mask corresponding to an rgb image
+         y_pred: the predicted mask of an rgb image
+    Returns: 
+         dice_coeff: A metric that accounts for precision and recall
                            on the scale from 0 - 1. The closer to 1, the
                            better.
+
     Citation (MIT License): https://github.com/jocicmarko/
                             ultrasound-nerve-segmentation/blob/
                             master/train.py
@@ -22,6 +27,7 @@ def dice_coef(y_true, y_pred):
 def weighted_cross_entropy(beta):
   '''
   Weighted binary crossentropy. Very useful for class imbalanced image segmentation
+
   Args:
      beta: the weighting factor (float). For an explanation on how this works see:
      https://lars76.github.io/neural-networks/object-detection/losses-for-segmentation/
@@ -45,6 +51,7 @@ def weighted_cross_entropy(beta):
 def balanced_cross_entropy(beta):
   '''
   Balanced binary crossentropy. Very useful for class imbalanced image segmentation
+
   Args:
      beta: the weighting factor (float). For an explanation on how this works see:
      https://lars76.github.io/neural-networks/object-detection/losses-for-segmentation/
