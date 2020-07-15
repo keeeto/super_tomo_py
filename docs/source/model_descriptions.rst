@@ -33,6 +33,7 @@ how to use this follow the tutorial on reconstruction with a dense network.
    :scale: 50 %
    :alt: alternate text
    :align: center
+
 AlexNet
 #######
 
@@ -63,12 +64,28 @@ Autoencoder
 
 An autoencoder is a type of artificial neural network used to learn efficient data codings in an unsupervised manner.[3]_ The aim of an autoencoder is to learn a representation (encoding) for a set of data, typically for dimensionality reduction, by training the network to ignore signal “noise”. For this reason autoencoders can be used for denoising images.
 
+Automap
+#######
+
+Automap is a network architecture that was specifically developed for tomogrpahic reconstruction.[4]_ We have implemented
+the architecture here. While we find that Automap does perform very well, we have alsofound that the dense connections mean
+that the architecture memory requirements scale very badly and it cannot deal with many typical sinograms.
+
+.. image:: figures/automap.png
+   :width: 1100px
+   :height: 512px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
 References
 ##########
 
-.. [1]  Krizhevsky, Alex; Sutskever, Ilya; Hinton, Geoffrey E. (2017-05-24). "ImageNet 
+.. [1] Krizhevsky, Alex; Sutskever, Ilya; Hinton, Geoffrey E. (2017-05-24). "ImageNet 
     classification with deep convolutional neural networks" (PDF). Communications of the ACM. 60 
     (6): 84–90
 .. [2] Ronneberger, Olaf; Fischer, Philipp; Brox, Thomas (2015). "U-Net: Convolutional 
     Networks for Biomedical Image Segmentation". arXiv:1505.04597
-.. [3]  Vincent, Pascal; Larochelle, Hugo (2010). "Stacked Denoising Autoencoders: Learning Useful Representations in a Deep Network with a Local Denoising Criterion". Journal of Machine Learning Research. 11: 3371–3408
+.. [3] Vincent, Pascal; Larochelle, Hugo (2010). "Stacked Denoising Autoencoders: Learning Useful Representations in a Deep Network with a Local Denoising Criterion". Journal of Machine Learning Research. 11: 3371–3408
+.. [4] Bo Zhu, Jeremiah Z. Liu, Bruce R. Rosen, Matthew S. Rosen "Image reconstruction by domain transform manifold learning" https://arxiv.org/pdf/1704.08841.pdf
