@@ -7,8 +7,8 @@ def automap(npr, ntr):
    '''
    builds the Automap model, from Nature volume 555, pages487–492(2018)
    Args:
-       npr: (int) number of pixels high
-       ntr: (int) number of pixels wide
+       ntr: (int) Number of translation steps
+       npr: (int) Number of tomographic angles
    Returns:
        A tensorflow model
    '''
@@ -48,6 +48,8 @@ def automap(npr, ntr):
    
    hidden_9 = Flatten()(hidden_8)
 
-   output_tensor = Dense(ntr*ntr, activation = 'linear')(hidden_9)
-   
+   hidden_10 = Dense(ntr*ntr, activation = 'linear')(hidden_9)
+
+   output_tensor = Reshape((ntr, ntr))(hidden_10)
+
    return Model(input_tensor, output_tensor)
