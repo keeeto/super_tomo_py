@@ -1,22 +1,22 @@
-models.cnn\_reconstruct package
-===============================
+models\.cnn\_reconstruct package
+================================
 
 Submodules
 ----------
 
-models.cnn\_reconstruct.models module
--------------------------------------
+models\.cnn\_reconstruct\.models module
+---------------------------------------
 
 .. automodule:: models.cnn_reconstruct.models
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 
 Module contents
 ---------------
 
 .. automodule:: models.cnn_reconstruct
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -52,7 +53,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> superres-ml
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> superres-ml
           
 
           
@@ -75,6 +76,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -137,6 +139,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -175,7 +178,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Tutorials</li>
     
@@ -208,7 +211,7 @@ We have a network architecture for this task: <cite>models.cnn_reconstruct.model
 <h4>Step 0<a class="headerlink" href="#step-0" title="Permalink to this headline">¶</a></h4>
 <p>Generate the data. We have some scripts to generate sample data for this task. <cite>LibShapes.py</cite>
 Alternatively download sample data from here: <a class="reference external" href="http://tiny.cc/vdl9rz">http://tiny.cc/vdl9rz</a></p>
-<a class="reference internal image-reference" href="_images/tomogram.png"><img alt="alternate text" class="align-center" src="_images/tomogram.png" style="width: 550.0px; height: 256.0px;" /></a>
+<a class="reference internal image-reference" href="_images/tomogram.png"><img alt="alternate text" class="align-center" src="_images/tomogram.png" style="width: 550.0px; height: 325.0px;" /></a>
 </div>
 <div class="section" id="step-1">
 <h4>Step 1<a class="headerlink" href="#step-1" title="Permalink to this headline">¶</a></h4>
@@ -255,7 +258,7 @@ three steps.</p>
                       <span class="n">validation_split</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
                       <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
                       <span class="n">epochs</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
-                      <span class="n">verbose</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+                      <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
                       <span class="n">callbacks</span><span class="o">=</span><span class="n">my_callbacks</span><span class="p">)</span>
 <span class="n">history</span> <span class="o">=</span> <span class="n">model_rec</span><span class="o">.</span><span class="n">history</span>
 </pre></div>
@@ -320,7 +323,7 @@ three steps.</p>
                       <span class="n">validation_split</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
                       <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
                       <span class="n">epochs</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
-                      <span class="n">verbose</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+                      <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
                       <span class="n">callbacks</span><span class="o">=</span><span class="n">my_callbacks</span><span class="p">)</span>
 <span class="n">history</span> <span class="o">=</span> <span class="n">model_rec</span><span class="o">.</span><span class="n">history</span>
 </pre></div>
@@ -393,17 +396,17 @@ to the netowrk for training.</p>
                            <span class="n">img_dir</span><span class="p">,</span> <span class="n">mask_dir</span><span class="p">,</span>
                            <span class="n">patch_shape</span><span class="p">,</span> <span class="n">image_shape</span><span class="p">,</span>
                            <span class="n">types</span> <span class="o">=</span> <span class="n">ftypes</span><span class="p">,</span> <span class="n">patch_range</span><span class="o">=</span><span class="n">patch_range</span><span class="p">,</span>
-                           <span class="n">debug</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                           <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                            <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-                           <span class="n">normalise_images</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                           <span class="n">normalise_images</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">valGene</span> <span class="o">=</span> <span class="n">mask_patch_from_file</span><span class="p">(</span><span class="n">valpath</span><span class="p">,</span>
                         <span class="n">img_dir</span><span class="p">,</span> <span class="n">mask_dir</span><span class="p">,</span>
                         <span class="n">patch_shape</span><span class="p">,</span> <span class="n">image_shape</span><span class="p">,</span>
                         <span class="n">types</span> <span class="o">=</span> <span class="n">ftypes</span><span class="p">,</span> <span class="n">patch_range</span><span class="o">=</span><span class="n">patch_range</span><span class="p">,</span>
-                        <span class="n">debug</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                        <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                         <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="n">normalise_images</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                        <span class="n">normalise_images</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -415,7 +418,7 @@ channel as the image is greyscale. We use a standard Adam optimiser. We use
 <cite>binary_crossentropy</cite> as the loss function and also monitor the accuracy during
 training.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">models.u_net.models</span> <span class="kn">import</span> <span class="n">unet_3layer</span>
-<span class="kn">import</span> <span class="nn">models.losses.custom_loss_functions</span> <span class="kn">as</span> <span class="nn">losses</span>
+<span class="kn">import</span> <span class="nn">models.losses.custom_loss_functions</span> <span class="k">as</span> <span class="nn">losses</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">unet_3layer</span><span class="p">(</span><span class="n">input_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">patch_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">patch_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
@@ -450,7 +453,7 @@ function to do this. First we load up the saved model and weights.</p>
 
 <span class="n">inference_binary_segmentation</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="n">patch_shape</span><span class="p">,</span> <span class="n">image_shape</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span>
               <span class="n">file_prefix</span><span class="o">=</span><span class="s1">&#39;binary_mask&#39;</span><span class="p">,</span> <span class="n">savepath</span><span class="o">=</span><span class="n">savepath</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
-             <span class="n">normim</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+             <span class="n">normim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In the <cite>inferred_masks</cite> directory there should now be a masking file something like:</p>
@@ -511,17 +514,17 @@ an optimiser. We need to set the number of units to use in the bottle-neck (late
 <div class="section" id="id11">
 <h4>Step 2<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
 <p>Train the model. Using the vae_train function set the model to train.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vae_train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">xtest</span><span class="p">,</span> <span class="n">ltest</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">sigmoid</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vae_train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">xtest</span><span class="p">,</span> <span class="n">ltest</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">sigmoid</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id12">
 <h4>Step 3<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
 <p>Try the trained model out on some of the test data.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">vae_inference</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">sigmoid</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">vae_inference</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">sigmoid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/noise-cleaned.png"><img alt="alternate text" class="align-center" src="_images/noise-cleaned.png" style="width: 506.0px; height: 256.0px;" /></a>
+<a class="reference internal image-reference" href="_images/noise-cleaned.png"><img alt="alternate text" class="align-center" src="_images/noise-cleaned.png" style="width: 606.0px; height: 375.0px;" /></a>
 </div>
 </div>
 </div>
@@ -547,11 +550,19 @@ an optimiser. We need to set the number of units to use in the bottle-neck (late
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Keith T. Butler
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -562,7 +573,6 @@ an optimiser. We need to set the number of units to use in the bottle-neck (late
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

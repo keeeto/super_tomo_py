@@ -1,22 +1,22 @@
-models.u\_net package
-=====================
+models\.u\_net package
+======================
 
 Submodules
 ----------
 
-models.u\_net.model module
---------------------------
+models\.u\_net\.models module
+-----------------------------
 
-.. automodule:: models.u_net.model
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. automodule:: models.u_net.models
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 
 Module contents
 ---------------
 
 .. automodule:: models.u_net
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:

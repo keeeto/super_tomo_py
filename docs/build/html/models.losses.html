@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,33 +11,35 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="models.u_net package" href="models.u_net.html" />
-    <link rel="prev" title="models.cnn_reconstruct package" href="models.cnn_reconstruct.html" /> 
+    <link rel="prev" title="models.dense_reconstruct package" href="models.dense_reconstruct.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -52,7 +53,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> superres-ml
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> superres-ml
           
 
           
@@ -75,6 +76,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -95,12 +97,14 @@
 <li class="toctree-l3 current"><a class="reference internal" href="models.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="models.alex_net.html">models.alex_net package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="models.autoencoder.html">models.autoencoder package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.automap.html">models.automap package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="models.cnn_reconstruct.html">models.cnn_reconstruct package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.dense_reconstruct.html">models.dense_reconstruct package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">models.losses package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="models.u_net.html">models.u_net package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="models.html#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html#module-models">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -110,6 +114,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -148,7 +153,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="modules.html">super-resolution-ml</a> &raquo;</li>
         
@@ -178,11 +183,69 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="models-losses-custom-loss-functions-module">
-<h2>models.losses.custom_loss_functions module<a class="headerlink" href="#models-losses-custom-loss-functions-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-models.losses.custom_loss_functions">
+<span id="models-losses-custom-loss-functions-module"></span><h2>models.losses.custom_loss_functions module<a class="headerlink" href="#module-models.losses.custom_loss_functions" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="models.losses.custom_loss_functions.balanced_cross_entropy">
+<code class="sig-prename descclassname">models.losses.custom_loss_functions.</code><code class="sig-name descname">balanced_cross_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">beta</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/losses/custom_loss_functions.html#balanced_cross_entropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.losses.custom_loss_functions.balanced_cross_entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Balanced binary crossentropy. Very useful for class imbalanced image segmentation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>beta</strong> – the weighting factor (float). For an explanation on how this works see:</p></li>
+<li><p><strong>https</strong> – //lars76.github.io/neural-networks/object-detection/losses-for-segmentation/</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="models.losses.custom_loss_functions.dice_coef">
+<code class="sig-prename descclassname">models.losses.custom_loss_functions.</code><code class="sig-name descname">dice_coef</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y_true</span></em>, <em class="sig-param"><span class="n">y_pred</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/losses/custom_loss_functions.html#dice_coef"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.losses.custom_loss_functions.dice_coef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the dice loss</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> – the labeled mask corresponding to an rgb image</p></li>
+<li><p><strong>y_pred</strong> – the predicted mask of an rgb image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A metric that accounts for precision and recall</dt><dd><p>on the scale from 0 - 1. The closer to 1, the
+better.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dice_coeff</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Citation (MIT License): <a class="reference external" href="https://github.com/jocicmarko/">https://github.com/jocicmarko/</a></dt><dd><p>ultrasound-nerve-segmentation/blob/
+master/train.py</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="models.losses.custom_loss_functions.weighted_cross_entropy">
+<code class="sig-prename descclassname">models.losses.custom_loss_functions.</code><code class="sig-name descname">weighted_cross_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">beta</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/losses/custom_loss_functions.html#weighted_cross_entropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.losses.custom_loss_functions.weighted_cross_entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Weighted binary crossentropy. Very useful for class imbalanced image segmentation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>beta</strong> – the weighting factor (float). For an explanation on how this works see:</p></li>
+<li><p><strong>https</strong> – //lars76.github.io/neural-networks/object-detection/losses-for-segmentation/</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-models.losses">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-models.losses" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -197,7 +260,7 @@
         <a href="models.u_net.html" class="btn btn-neutral float-right" title="models.u_net package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="models.cnn_reconstruct.html" class="btn btn-neutral float-left" title="models.cnn_reconstruct package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="models.dense_reconstruct.html" class="btn btn-neutral float-left" title="models.dense_reconstruct package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -206,11 +269,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Keith T. Butler
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -221,7 +292,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

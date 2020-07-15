@@ -19,7 +19,7 @@ Alternatively download sample data from here: http://tiny.cc/vdl9rz
 
 .. image:: figures/tomogram.png
    :width: 1100px
-   :height: 512px
+   :height: 650px
    :scale: 50 %
    :alt: alternate text
    :align: center
@@ -409,8 +409,8 @@ Try the trained model out on some of the test data.
    out = vae_inference(model, np.expand_dims(X[9], axis=0), sigmoid=True)
 
 .. image:: figures/noise-cleaned.png
-   :width: 1012px
-   :height: 512px
+   :width: 1212px
+   :height: 750px
    :scale: 50 %
    :alt: alternate text
    :align: center

@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -52,7 +53,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> superres-ml
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> superres-ml
           
 
           
@@ -75,6 +76,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -92,9 +94,9 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Python API</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">data_handeling package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#data-handeling-generators-module">data_handeling.generators module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#data-handeling-tools-module">data_handeling.tools module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-data_handeling.generators">data_handeling.generators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-data_handeling.tools">data_handeling.tools module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-data_handeling">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="models.html">models package</a></li>
@@ -105,6 +107,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -143,7 +146,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="modules.html">super-resolution-ml</a> &raquo;</li>
         
@@ -171,14 +174,117 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="data-handeling-generators-module">
-<h2>data_handeling.generators module<a class="headerlink" href="#data-handeling-generators-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-data_handeling.generators">
+<span id="data-handeling-generators-module"></span><h2>data_handeling.generators module<a class="headerlink" href="#module-data_handeling.generators" title="Permalink to this headline">¶</a></h2>
+<p>:w</p>
+<p>&#64;author: Keith Butler</p>
+<dl class="py function">
+<dt id="data_handeling.generators.generator_from_df">
+<code class="sig-prename descclassname">data_handeling.generators.</code><code class="sig-name descname">generator_from_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">a</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/data_handeling/generators.html#generator_from_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_handeling.generators.generator_from_df" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="data_handeling.generators.mask_patch_from_file">
+<code class="sig-prename descclassname">data_handeling.generators.</code><code class="sig-name descname">mask_patch_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">a</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/data_handeling/generators.html#mask_patch_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_handeling.generators.mask_patch_from_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="data_handeling.generators.mask_patch_weights_from_file">
+<code class="sig-prename descclassname">data_handeling.generators.</code><code class="sig-name descname">mask_patch_weights_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">a</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/data_handeling/generators.html#mask_patch_weights_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_handeling.generators.mask_patch_weights_from_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="data_handeling.generators.test_patch_flow_from_file">
+<code class="sig-prename descclassname">data_handeling.generators.</code><code class="sig-name descname">test_patch_flow_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">a</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/data_handeling/generators.html#test_patch_flow_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_handeling.generators.test_patch_flow_from_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="data_handeling.generators.threadsafe_generator">
+<code class="sig-prename descclassname">data_handeling.generators.</code><code class="sig-name descname">threadsafe_generator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/data_handeling/generators.html#threadsafe_generator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_handeling.generators.threadsafe_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>A decorator that takes a generator function and makes it thread-safe.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="data_handeling.generators.threadsafe_iter">
+<em class="property">class </em><code class="sig-prename descclassname">data_handeling.generators.</code><code class="sig-name descname">threadsafe_iter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">it</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/data_handeling/generators.html#threadsafe_iter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_handeling.generators.threadsafe_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Takes an iterator/generator and makes it thread-safe by
+serialising call to the <cite>next</cite> method of given iterator/generator.</p>
+</dd></dl>
+
 </div>
-<div class="section" id="data-handeling-tools-module">
-<h2>data_handeling.tools module<a class="headerlink" href="#data-handeling-tools-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-data_handeling.tools">
+<span id="data-handeling-tools-module"></span><h2>data_handeling.tools module<a class="headerlink" href="#module-data_handeling.tools" title="Permalink to this headline">¶</a></h2>
+<p>:w
+Created on Tue Apr  9 10:19:59 2019</p>
+<p>&#64;author: Keith Butler</p>
+<dl class="py function">
+<dt id="data_handeling.tools.build_list_images">
+<code class="sig-prename descclassname">data_handeling.tools.</code><code class="sig-name descname">build_list_images</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">datapath</span></em>, <em class="sig-param"><span class="n">types</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/data_handeling/tools.html#build_list_images"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_handeling.tools.build_list_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds a list of all image files in a given directory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datapath</strong> – the location to search</p></li>
+<li><p><strong>types</strong> – a tuple of the extensions to search, if unspecified a list of defaults is checked</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of the datapaths to the images</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>paths</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_handeling.tools.normalise_discritise_data">
+<code class="sig-prename descclassname">data_handeling.tools.</code><code class="sig-name descname">normalise_discritise_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img</span></em>, <em class="sig-param"><span class="n">mask</span></em>, <em class="sig-param"><span class="n">flag_multi_class</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">num_class</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/data_handeling/tools.html#normalise_discritise_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_handeling.tools.normalise_discritise_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Processes the image data to make it ready for the NN. Converts mask into a range of integer values. Normalises the image values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> – The image as an array</p></li>
+<li><p><strong>mask</strong> – The mask as an array</p></li>
+<li><p><strong>flag_multi_class</strong> – boolean, is this a multiclass or binary classification</p></li>
+<li><p><strong>num_class</strong> – integer, the number of classes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The image normalised
+mask: The mask converted to intergers by class</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>img</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_handeling.tools.undersample_dataframe">
+<code class="sig-prename descclassname">data_handeling.tools.</code><code class="sig-name descname">undersample_dataframe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">'label'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/data_handeling/tools.html#undersample_dataframe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_handeling.tools.undersample_dataframe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Balances a class imbalanced dataframe by undersampling. Takes the size of the smallest class
+and cuts all classes to that size, randomly selecting members to fit the proportion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – The input dataframe (Pandas dataframe object)</p></li>
+<li><p><strong>label</strong> – The label of the column to sort by (string, default label)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The class balanced dataframe (Pandas dataframe object)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>df_bal</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-data_handeling">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-data_handeling" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -202,11 +308,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Keith T. Butler
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -217,7 +331,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
