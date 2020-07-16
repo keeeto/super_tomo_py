@@ -70,3 +70,17 @@ def balanced_cross_entropy(beta):
     return tf.math.reduce_mean(loss * (1 - beta))
 
   return loss
+
+def root_mean_squared_error(y_true, y_pred):
+  '''
+  Root mean squared error loss
+
+  Args:
+      y_true: the ground truth value
+      y_pred: the predicted value
+
+  Returns:
+      loss: a float
+
+  '''
+  return keras.sqrt(keras.mean(keras.square(y_pred - y_true)))
