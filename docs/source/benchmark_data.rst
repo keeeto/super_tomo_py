@@ -12,6 +12,9 @@ our implementations, to compare new methods, or simply as your own test.
 | http://tiny.cc/3hydsz | Synthetic      | DIV2K    | n/a         | 64x64        | 180,000 | Image/sinogram       |
 |                       |                |          |             |              |         | pairs                |
 +-----------------------+----------------+----------+-------------+--------------+---------+----------------------+
+| http://tiny.cc/m3djsz | Synthetic      | Random   |             | 128x128      | 55,000  | Image/sinogram       |
+|                       |                | shapes   |             |              |         | pairs                |
++-----------------------+----------------+----------+-------------+--------------+---------+----------------------+
 | http://tiny.cc/58zdsz | Real           | Micro CT | Reactor bed | 185x185x1001 | 1000    | 3rd dim is the       |
 |                       |                |          |             |              |         | z-position           |
 +-----------------------+----------------+----------+-------------+--------------+---------+----------------------+
