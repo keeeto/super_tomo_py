@@ -1,0 +1,8 @@
+pillow
+tensorflow >= 2.1
+keras 
+scikit-learn
+scikit-image
+h5py
+matplotlib
+imageio

@@ -27,6 +27,7 @@ def dense_reconstruct(ntr, npr):
     conv1 = Conv2D(filters = 64, kernel_size = (3,3), strides = 1,
                    padding = 'same', activation = 'relu')(conv1)
     out1 = Conv2D(1, 3, padding='same')(conv1)
+    out1 = Reshape((ntr, ntr))(out1)
 
     return Model(inputs = inputs, outputs = out1)
     

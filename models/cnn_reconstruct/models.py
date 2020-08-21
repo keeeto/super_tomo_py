@@ -34,6 +34,7 @@ def reconstruct_cnn(ntr, npr):
     conv = Conv2D(filters = 128, kernel_size = (3,3), strides = 1, padding = 'same', activation = 'relu')(conv)
     conv = Conv2D(filters = 128, kernel_size = (3,3), strides = 1, padding = 'same', activation = 'relu')(conv)
     outputs = Conv2D(1, 3, padding='same')(conv)
+    outputs = Reshape((ntr, ntr))(outputs)
 
     return Model(inputs, outputs)
     

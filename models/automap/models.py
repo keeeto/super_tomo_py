@@ -3,7 +3,7 @@ from tensorflow.keras.layers import UpSampling2D, Flatten, Reshape
 from tensorflow.keras.layers import Conv2DTranspose
 from tensorflow.keras.models import Model
 
-def automap(npr, ntr):
+def automap(ntr, npr):
    '''
    Builds the Automap model, from Nature volume 555, pages487–492(2018)
 
