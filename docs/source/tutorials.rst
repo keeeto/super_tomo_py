@@ -237,7 +237,7 @@ three steps.
    from tensorflow.keras.callbacks import EarlyStopping
    from models.automap.models import automap
 
-   model_rec = dense_reconstruct(sinos.shape[1], sinos.shape[2])
+   model_rec = automap(sinos.shape[1], sinos.shape[2])
    model_rec.compile(optimizer = Adam(lr = 0.000025), loss = 'mean_squared_error', metrics = ['mae', 'mse'])
    my_callbacks = [EarlyStopping(patience=3)]
 
