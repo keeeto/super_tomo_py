@@ -8,15 +8,14 @@ import os
 import numpy as np
 import pandas as pd
 
-def normalise_discritise_data(img, mask, flag_multi_class=False, num_class=2, debug=False):
+def normalise_discritise_data(img, mask, flag_multi_class=False, debug=False):
     '''
     Processes the image data to make it ready for the NN. Converts mask into a range of integer values. Normalises the image values.
     
     Args:
         img: The image as an array
         mask: The mask as an array
-        flag_multi_class: boolean, is this a multiclass or binary classification
-        num_class: integer, the number of classes
+        flag_multi_class: boolean - are there more than two classes?
     Returns:
         img: The image normalised
         mask: The mask converted to intergers by class
@@ -25,20 +24,21 @@ def normalise_discritise_data(img, mask, flag_multi_class=False, num_class=2, de
         print('Maximum value in mask before {0}'.format(mask.max()))
 
     if(flag_multi_class):
-        img = img / 255
-        mask = mask[:, :, :, 0] if(len(mask.shape) == 4) else mask[:, :, 0]
-        new_mask = np.zeros(mask.shape + (num_class,))
-        for i in range(num_class):
-            new_mask[mask == i, i] = 1
-        new_mask = np.reshape(new_mask, (new_mask.shape[0], new_mask.shape[1]*new_mask.shape[2] \
-        ,new_mask.shape[3])) if flag_multi_class else np.reshape(new_mask, (new_mask.shape[0]* \
-        new_mask.shape[1], new_mask.shape[2]))
+        labels = np.unique(mask)
+        num_classes = len(labels)
+        if(np.max(img) > 1):
+            img = img / 255
+        new_mask = np.zeros(mask.shape)
+        print(new_mask.shape, labels)
+        for i in range(num_classes):
+            print(labels[i])
+            new_mask[mask == labels[i]] = i
         mask = new_mask
     else:
         if(np.max(img) > 1):
             img = img / 255
         if(np.max(mask) > 1):
-            mask = mask /255
+            mask = mask / np.max(mask)
         mask[mask > 0.5] = 1
         mask[mask <= 0.5] = 0
     if debug:
