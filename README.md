@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/keeeto/super_tomo_py.svg?branch=master)](https://travis-ci.org/keeeto/super_tomo_py)
 # super-resolution-ml
 Code related to the `Artificial intelligence for reconstruction and super-resolution of chemical tomography` project.
 
