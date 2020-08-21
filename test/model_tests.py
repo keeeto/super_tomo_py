@@ -3,7 +3,7 @@ import pytest
 import numpy as np
 import sys
 
-sys.path.append('/home/mts87985/ml-tomo/')
+#sys.path.append('/home/mts87985/ml-tomo/')
 from super_tomo_py.models.alex_net.models import alex_net_classify
 
 # Random seed to ensure that tests are repeatable
@@ -26,8 +26,8 @@ def test_automap():
     from tensorflow.keras.optimizers import Adam
     from super_tomo_py.models.automap.models import automap
 
-    width = np.random.randint(100, 200)
-    height = np.random.randint(100, 200)
+    width = np.random.randint(24, 64)
+    height = np.random.randint(24, 64)
     channels = 1
     image = np.random.randint(0, 255, size=(width, height, channels))
     sinos =  np.expand_dims(image, axis=0)
@@ -38,8 +38,8 @@ def test_automap():
 
 def test_cnn_reconstruct():
     from super_tomo_py.models.cnn_reconstruct.models import reconstruct_cnn
-    width = np.random.randint(100, 200)
-    height = np.random.randint(100, 200)
+    width = np.random.randint(24, 64)
+    height = np.random.randint(24, 64)
     channels = 1
     image = np.random.randint(0, 255, size=(width, height, channels))
     sinos =  np.expand_dims(image, axis=0)

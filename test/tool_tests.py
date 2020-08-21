@@ -3,7 +3,7 @@ import pytest
 import numpy as np
 import sys
 
-sys.path.append('../../')
+#sys.path.append('/home/mts87985/ml-tomo/')
 
 # Random seed to ensure that tests are repeatable
 RANDOM_SEED = 23
