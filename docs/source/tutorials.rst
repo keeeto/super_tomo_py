@@ -35,9 +35,9 @@ Split the data into training and test data.
 
 .. code:: python
    
-   from utils.tools import read_reconstruct_library
    import sys
    sys.path.append('/path/to/super-resolution-ml/')
+   from utils.tools import read_reconstruct_library
 
    images, sinos, nim = read_reconstruct_library('data/reconstruction/shapes_random_noise_64px_norm.h5')
    index = np.arange(nim)
@@ -413,6 +413,50 @@ In the `inferred_masks` directory there should now be a masking file something l
 
 .. image:: figures/segmented.png
 
+Dimension reduction
+###################
+
+This module allows one to project a dataset of images into lower dimensional space (2 or 3 D usually). It is very useful
+for inspeting datasets to look for outliers and anomallies. It is also useful to see if a new image is out of the training
+distribution, which can be a problem for CNN based reconstructions. See our paper *Identifying and avoiding training set 
+bias in neural networks for tomographic image reconstruction* for a discussion of this.
+
+Step 0
+------
+
+Load the data - your data `images` data should be an array of dimensions (number_of_images, width, height, channels).
+In the example below we use a helper function to get the data from a h5 file, but you can use any data you like.
+
+.. code:: python
+
+   import sys
+   sys.path.append('/path/to/super-resolution-ml/')
+   from utils.tools import read_reconstruct_library
+
+   images, sinos, nim = read_reconstruct_library('data/reconstruction/shapes_random_noise_64px_norm.h5')
+
+Step 1
+------
+
+Run the dimensionality reduction. The code below will convert each of your images to a 2D vector. You can alter the settings 
+of the dimensionality reduction. The code uses the `scikit-learn` implementation of `tSNE` to reduce dimensions. You can change
+the number of desired output dimensions by passing the `n_components_tsne` to the function, by default it is 2.
+
+.. code:: python
+
+    x = dimension_reducer(images)
+
+Step 3
+------
+
+Plot and inspect your result. You can now look at the reduced dimesnion map to see if there are any outliers or anomalies.
+
+.. code:: python
+
+    plt.scatter(x[:, 0], x[:, 1])
+
+
+   
 Denoising of X-ray images
 ##########################
 

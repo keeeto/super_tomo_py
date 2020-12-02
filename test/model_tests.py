@@ -98,3 +98,12 @@ def test_unet_3():
     pred = model.predict(image)
 
     assert pred.shape == (1, width, height, 1)
+
+def test_dim_red():
+    from super_tomo_py.models.dimension_reduction.models import dimension_reducer
+    
+    images = np.random.rand(100, 64, 64, 3)
+    x = dimension_reducer(images, n_iter=300)
+    assert x.shape == (100, 2)
+    x = dimension_reducer(images, n_components_tsne=4, n_iter=300)
+    assert x.shape == (100, 4)
