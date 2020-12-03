@@ -22,15 +22,18 @@ def read_reconstruct_library(filepath):
         # List all groups
         a_group_key = list(f.keys())
         # Get the data
+        images = []
+        sinos = []
+        nim = 0
         for key in a_group_key:
             if key == 'Images':
                 images = np.array([list(f[key])])
+                images = np.transpose(images, (3,1,2,0))
             elif key == 'Sinograms':
                 sinograms = np.array([list(f[key])])
+                sinograms = np.transpose(sinograms, (3,1,2,0))
             elif key == 'NImages':
                 nim = np.array((f[key]))
-        images = np.transpose(images, (3,1,2,0))
-        sinograms = np.transpose(sinograms, (3,1,2,0))
         return(images, sinograms, nim)
 
 def _find_image_files(datapath, ftypes):
