@@ -421,11 +421,23 @@ for inspeting datasets to look for outliers and anomallies. It is also useful to
 distribution, which can be a problem for CNN based reconstructions. See our paper *Identifying and avoiding training set 
 bias in neural networks for tomographic image reconstruction* for a discussion of this.
 
+.. image:: figures/clusters.png
+   :width: 1024px
+   :height: 756px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
 Step 0
 ------
 
-Load the data - your data `images` data should be an array of dimensions (number_of_images, width, height, channels).
-In the example below we use a helper function to get the data from a h5 file, but you can use any data you like.
+
+If you do not already have the data you can download it from 
+
+* Sinograms: https://tinyurl.com/y2t56hgd
+* Images: https://tinyurl.com/y2l4jvoj 
+
+Then unzip the data. It contains datasets used in our paper. In the example below we load 2000 sinograms, taken from all of the materials.
 
 .. code:: python
 
@@ -433,7 +445,7 @@ In the example below we use a helper function to get the data from a h5 file, bu
    sys.path.append('/path/to/super-resolution-ml/')
    from utils.tools import read_reconstruct_library
 
-   images, sinos, nim = read_reconstruct_library('data/reconstruction/shapes_random_noise_64px_norm.h5')
+   images, sinos, nim = read_reconstruct_library('./All_mixed_2K_sinograms_raw.h5')
 
 Step 1
 ------
@@ -444,7 +456,7 @@ the number of desired output dimensions by passing the `n_components_tsne` to th
 
 .. code:: python
 
-    x = dimension_reducer(images)
+    x = dimension_reducer(sinos)
 
 Step 3
 ------
