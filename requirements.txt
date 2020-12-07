@@ -8,3 +8,4 @@ h5py
 matplotlib
 imageio
 pytest >= 6.0
+tqdm
