@@ -4,6 +4,7 @@
 *.pickle
 *.pkl
 *.png
+*.tiff
 *.txt
 *.pdf
 *.blg

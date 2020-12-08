@@ -35,9 +35,9 @@ Split the data into training and test data.
 
 .. code:: python
    
-   from utils.tools import read_reconstruct_library
    import sys
    sys.path.append('/path/to/super-resolution-ml/')
+   from utils.tools import read_reconstruct_library
 
    images, sinos, nim = read_reconstruct_library('data/reconstruction/shapes_random_noise_64px_norm.h5')
    index = np.arange(nim)
@@ -413,6 +413,62 @@ In the `inferred_masks` directory there should now be a masking file something l
 
 .. image:: figures/segmented.png
 
+Dimension reduction
+###################
+
+This module allows one to project a dataset of images into lower dimensional space (2 or 3 D usually). It is very useful
+for inspeting datasets to look for outliers and anomallies. It is also useful to see if a new image is out of the training
+distribution, which can be a problem for CNN based reconstructions. See our paper *Identifying and avoiding training set 
+bias in neural networks for tomographic image reconstruction* for a discussion of this.
+
+.. image:: figures/clusters.png
+   :width: 1024px
+   :height: 756px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+Step 0
+------
+
+
+If you do not already have the data you can download it from 
+
+* Sinograms: https://tinyurl.com/y2t56hgd
+* Images: https://tinyurl.com/y2l4jvoj 
+
+Then unzip the data. It contains datasets used in our paper. In the example below we load 2000 sinograms, taken from all of the materials.
+
+.. code:: python
+
+   import sys
+   sys.path.append('/path/to/super-resolution-ml/')
+   from utils.tools import read_reconstruct_library
+
+   images, sinos, nim = read_reconstruct_library('./All_mixed_2K_sinograms_raw.h5')
+
+Step 1
+------
+
+Run the dimensionality reduction. The code below will convert each of your images to a 2D vector. You can alter the settings 
+of the dimensionality reduction. The code uses the `scikit-learn` implementation of `tSNE` to reduce dimensions. You can change
+the number of desired output dimensions by passing the `n_components_tsne` to the function, by default it is 2.
+
+.. code:: python
+
+    x = dimension_reducer(sinos)
+
+Step 3
+------
+
+Plot and inspect your result. You can now look at the reduced dimesnion map to see if there are any outliers or anomalies.
+
+.. code:: python
+
+    plt.scatter(x[:, 0], x[:, 1])
+
+
+   
 Denoising of X-ray images
 ##########################
 

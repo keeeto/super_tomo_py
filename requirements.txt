@@ -4,7 +4,8 @@ tensorflow >= 2.1
 keras 
 scikit-learn
 scikit-image
-h5py
+h5py < 3.0.0
 matplotlib
 imageio
 pytest >= 6.0
+tqdm
